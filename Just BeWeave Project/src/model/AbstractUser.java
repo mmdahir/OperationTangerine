@@ -8,6 +8,7 @@ public abstract class AbstractUser implements User {
 	
 	private boolean isAdmin;
 	
+	
 	public AbstractUser(String theUserName, String thePassword, boolean theAdmin) {
 		myUserName = theUserName;
 		myPassword = thePassword;
