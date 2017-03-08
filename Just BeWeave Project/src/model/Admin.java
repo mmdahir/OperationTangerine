@@ -1,5 +1,5 @@
 package model;
 
-public class Admin {
+public class Admin extends AbstractUser {
 
 }
