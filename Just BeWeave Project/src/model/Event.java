@@ -1,3 +1,8 @@
+/**
+ * @author Abdullah
+ * @date 3/7/2017
+ */
+
 package model;
 
 import java.util.ArrayList;
@@ -5,17 +10,42 @@ import java.util.List;
 
 public class Event {
 	
+	/**
+	 * This is the title of event.
+	 */
 	String myTitle;
+	
+	/**
+	 * This is the location of event.
+	 */
 	String myLocation;
+	
+	/**
+	 * A brief description of event.
+	 */
 	String myDescription;
+	
+	/**
+	 * The date when event will take place.
+	 */
 	Date myDate;
+	
+	/**
+	 * List of users participating in event.
+	 */
 	List <AbstractUser> myUsers;
 	
+	/**
+	 *
+	 */
 	public Event(String theTitle) {
 		myTitle = theTitle;
 		myUsers = new ArrayList<AbstractUser>();
 	}
 	
+	/**
+	 * 
+	 */
 	public Event(String theTitle, String theLocation, String theDescription, Date theDate) {
 		myTitle = theTitle;
 		myLocation = theLocation;
@@ -24,42 +54,72 @@ public class Event {
 		myUsers = new ArrayList<AbstractUser>();
 	}
 	
+	/**
+	 * 
+	 */
 	public void setTitle(String theTitle) {
 		myTitle = theTitle;
 	}
 	
+	/**
+	 * 
+	 */
 	public String getTitle() {
 		return myTitle;
 	}
 	
+	/**
+	 * 
+	 */
 	public void setLocation(String theLocation) {
 		myLocation = theLocation;
 	}
 	
+	/**
+	 * 
+	 */
 	public String getLocation(String theLocation) {
 		return theLocation;
 	}
 	
+	/**
+	 * 
+	 */
 	public void setDescription(String theDescription) {
 		myDescription = theDescription;
 	}
 	
+	/**
+	 * 
+	 */
 	public String getDescription() {
 		return myDescription;
 	}
 	
+	/**
+	 * 
+	 */
 	public void setDate(int month, int date, int year) {
 		myDate = new Date(month, date, year);
 	}
 	
+	/**
+	 * 
+	 */
 	public Date getDate() {
 		return myDate;
 	}
 	
+	/**
+	 * 
+	 */
 	public void addUser(AbstractUser theUser) {
 		myUsers.add(theUser);
 	}
 	
+	/**
+	 * 
+	 */
 	public void removeUser(AbstractUser theUser) {
 		for (int i = 0; i < myUsers.size(); i++) {
 			if (myUsers.get(i).equals(theUser)) {
@@ -68,12 +128,18 @@ public class Event {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void removeUser(int theIndex) {
 		if (theIndex < myUsers.size()) {
 			myUsers.remove(theIndex);
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public AbstractUser getUser(int theIndex) {
 		if (theIndex < myUsers.size()) {
 			return myUsers.get(theIndex);
@@ -81,6 +147,9 @@ public class Event {
 		return null;
 	}
 	
+	/**
+	 * 
+	 */
 	public AbstractUser getUser(String theUserName) {
 		for (int i = 0; i < myUsers.size(); i++) {
 			if (myUsers.get(i).getUserName() == theUserName) {
