@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
@@ -12,6 +13,7 @@ public class Event {
 	
 	public Event(String theTitle) {
 		myTitle = theTitle;
+		myUsers = new ArrayList<AbstractUser>();
 	}
 	
 	public void setLocation(String theLocation) {
