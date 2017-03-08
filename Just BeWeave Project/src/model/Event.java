@@ -16,6 +16,22 @@ public class Event {
 		myUsers = new ArrayList<AbstractUser>();
 	}
 	
+	public Event(String theTitle, String theLocation, String theDescription, Date theDate) {
+		myTitle = theTitle;
+		myLocation = theLocation;
+		myDescription = theDescription;
+		myDate = theDate;
+		myUsers = new ArrayList<AbstractUser>();
+	}
+	
+	public void setTitle(String theTitle) {
+		myTitle = theTitle;
+	}
+	
+	public String getTitle() {
+		return myTitle;
+	}
+	
 	public void setLocation(String theLocation) {
 		myLocation = theLocation;
 	}
