@@ -2,6 +2,6 @@ package model;
 
 public class Admin extends AbstractUser {
 	
-	/*TESTs*/
+	/*Whats up guys*/
 
 }
