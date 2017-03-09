@@ -162,11 +162,15 @@ public class DataBase {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		//checkCSV(String theFile, String confVar, boolean getAll)
+		System.out.println("Start");
+		
 		LinkedList<String[]> u = checkCSV("Events.csv", "Event1", false);
 		
 		
 		
 		LinkedList<Event> e = new LinkedList<Event>();
+		
+		System.out.println("End");
 	}
 	
 }
