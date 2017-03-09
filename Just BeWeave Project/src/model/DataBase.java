@@ -100,7 +100,7 @@ public class DataBase {
 		
 		Event e = null;
 		
-		List<User> users = new ArrayList<User>();
+		//List<User> users = new ArrayList<User>();
 		
 		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
@@ -128,10 +128,7 @@ public class DataBase {
 				e.addUser(user);
 			}
 			
-			
-			
-			
-			e.myUsers = users;
+			//e.myUsers = users;
 		}	
 		
 		return e;
@@ -220,6 +217,33 @@ public class DataBase {
 		return u;
 	}
 	
+	/**
+	 * Deletes an Event from the CSV file.
+	 * @param theEvent: the event's name to be deleted.
+	 * @throws IOException 
+	 */
+	public static void deleteEvent(String theEvent) throws IOException {
+		
+		File file = new File(myEventCSV);
+		FileWriter fileW = new FileWriter(file, true);
+        BufferedWriter out = new BufferedWriter(fileW);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        
+        String line;
+        while ((line = br.readLine()) != null) {
+           if(line.contains(theEvent)) {
+               out.write("");
+           }
+        }
+        br.close();
+
+        out.close();
+		
+	}
+	
+	public static void main (String[] args) throws IOException {
+		deleteEvent("Event1");
+	}
 	
 	/**
 	 * Appends an Event onto the CSV.
