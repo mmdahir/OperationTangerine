@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,8 +53,6 @@ public class DataBase {
 		LinkedList<String[]> list = new LinkedList<String[]>();
 		
 		FileReader usrFile = new FileReader(new File(theFile));
-		
-		@SuppressWarnings("resource")
 		BufferedReader brFile = new BufferedReader(usrFile);
 		
 		String line = "";
@@ -75,6 +74,10 @@ public class DataBase {
 				   								for a specific variable, I don't want to waste
 				   								time splitting a String unnecessarily. */
 				list.add(lineArr);
+				
+				usrFile.close();
+				brFile.close();
+				
 				return list;
 			}
 			
@@ -205,6 +208,8 @@ public class DataBase {
 		
 		String[] arr = list.get(0);
 		
+		//System.out.println(Arrays.toString(arr));
+		
 		if(arr[2].toLowerCase().contains("f")) {
 			u = new NonAdmin(arr[0], arr[1], false);
 		} else {
@@ -219,7 +224,7 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myEventCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		brFile.write(theEvent.toString() + "\n");
+		brFile.append(theEvent.toString() + "\n");
 		
 		usrFile.close();
 		brFile.close();
@@ -230,13 +235,13 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myUserCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		brFile.write(theUser.getUserName() + ",");
-		brFile.write(theUser.getPassword() + ",");
+		brFile.append(theUser.getUserName() + ",");
+		brFile.append(theUser.getPassword() + ",");
 		
 		if (theUser.isAdmin()) {
-			brFile.write("TRUE" + "\n");
+			brFile.append("TRUE" + "\n");
 		} else {
-			brFile.write("FALSE" + "\n");
+			brFile.append("FALSE" + "\n");
 		}
 		
 		usrFile.close();
@@ -244,30 +249,27 @@ public class DataBase {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		System.out.println("Start:");
-		
-		/*
-		//TEST CASE FOR checkCSV
-		LinkedList<String[]> u = checkCSV(myEventCSV, "Event1", false);
-		System.out.println(Arrays.deepToString(u.get(0)));
-		
-		System.out.println("\n______________________\n");
-		*/
 		
 		
+		saveUser(new NonAdmin("NICOLE", "PSWDNICOLE", false));	
 		
-		/*
-		//TESTCASE FOR getUSer
-		User ex = getUser("BOB");
-		System.out.println(ex.getUserName().compareTo("BOB")); //0
-		System.out.println(ex.getUserName().compareTo("BB")); //not 0
-		*/
 	}
 	
 }
 
 /*
- 		//TEST CASE FOR getEvents
+System.out.println("Start:");
+		
+		
+		//TEST CASE FOR checkCSV
+		LinkedList<String[]> u = checkCSV(myEventCSV, "Event1", false);
+		System.out.println(Arrays.deepToString(u.get(0)));
+		
+		System.out.println("\n______________________\n");
+		
+		
+		
+		//TEST CASE FOR getEvents
 		List<Event> e = getEvents();
 		
 		for(int i = 0; i < e.size(); i++) {
@@ -288,6 +290,13 @@ public class DataBase {
 		verifyUser("BOB", "PSWDBOB");
 		verifyUser("KAKA", "PSWDKAKA");
 		verifyUser("KAKA", "PSWDBOB");
+		//TESTCASE FOR getUSer
+		User ex = getUser("BOB");
+		System.out.println(ex.getUserName().compareTo("BOB")); //0
+		System.out.println(ex.getUserName().compareTo("BB")); //not 0
 		
 		System.out.println("\n______________________\n");
+		
+		saveEvent(f);
+		saveUser(new NonAdmin("NICOLE", "PSWDNICOLE", false));	
 */
