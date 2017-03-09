@@ -6,12 +6,13 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -166,6 +167,14 @@ public class DataBase {
 		return events;
 	}
 	
+	/**
+	 * Verifies is a username and password is correct.
+	 * @param userName: the user name in string form.
+	 * @param password: the password in string form.
+	 * @return: a User object if valid (null otherwise).
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public static User verifyUser(String userName, String password) 
 			throws FileNotFoundException, IOException {
 		User u = getUser(userName);
@@ -173,6 +182,7 @@ public class DataBase {
 		if(u == null) return null;
 	
 		if(u.getPassword().compareTo(password) == 0) {
+			//System.out.println("Valid");
 			return u;
 		}
 		
@@ -205,25 +215,45 @@ public class DataBase {
 		return u;
 	}
 	
-	public static void saveEvent(Event theEvent) {
+	public static void saveEvent(Event theEvent) throws IOException {
 		
+		FileWriter usrFile = new FileWriter(new File(myEventCSV));
+		BufferedWriter brFile = new BufferedWriter(usrFile);
+		
+		StringBuilder sb = new StringBuilder();
+		String comma = ",";
+		
+		
+		
+		usrFile.close();
+		brFile.close();
 	}
 	
-	public static void saveUser(User theUser) {
+	public static void saveUser(User theUser) throws IOException {
 		
+		FileWriter usrFile = new FileWriter(new File(myUserCSV));
+		BufferedWriter brFile = new BufferedWriter(usrFile);
+		
+		StringBuilder sb = new StringBuilder();
+		String comma = ",";
+		
+		
+		usrFile.close();
+		brFile.close();
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		//checkCSV(String theFile, String confVar, boolean getAll)
 		System.out.println("Start:");
 		
+		/*
+		//TEST CASE FOR checkCSV
 		LinkedList<String[]> u = checkCSV(myEventCSV, "Event1", false);
-		
-		//System.out.println(u.size());
 		System.out.println(Arrays.deepToString(u.get(0)));
 		
 		System.out.println("\n______________________\n");
+		*/
 		
+		//TEST CASE FOR getEvents
 		List<Event> e = getEvents();
 		
 		for(int i = 0; i < e.size(); i++) {
@@ -232,9 +262,27 @@ public class DataBase {
 		
 		System.out.println("\n______________________\n");
 		
+		//TEST CASE FOR getEvent
 		Event f = getEvent("Event1");
 		System.out.println(f.toString());
 		System.out.println("\nEnd");
+		
+		
+		System.out.println("\n______________________\n");
+		
+		//TESTCASE FOR verifyUser
+		verifyUser("BOB", "PSWDBOB");
+		verifyUser("KAKA", "PSWDKAKA");
+		verifyUser("KAKA", "PSWDBOB");
+		
+		System.out.println("\n______________________\n");
+		
+		/*
+		//TESTCASE FOR getUSer
+		User ex = getUser("BOB");
+		System.out.println(ex.getUserName().compareTo("BOB")); //0
+		System.out.println(ex.getUserName().compareTo("BB")); //not 0
+		*/
 	}
 	
 }
