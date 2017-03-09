@@ -118,15 +118,17 @@ public class DataBase {
 			Date date = new Date(Integer.parseInt(lineArr[3]), Integer.parseInt(lineArr[4]),
 					Integer.parseInt(lineArr[5]));
 			
+			e = new Event(title, location, description, date);
+			
 			for(int i = usrNameStartIdx; i < lineArr.length; i++) {
 				String username = lineArr[i];
 				
 				User user = getUser(username);
 				
-				users.add(user);
+				e.addUser(user);
 			}
 			
-			e = new Event(title, location, description, date);
+			
 			
 			
 			e.myUsers = users;
