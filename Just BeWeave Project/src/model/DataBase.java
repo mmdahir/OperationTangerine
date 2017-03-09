@@ -98,7 +98,7 @@ public class DataBase {
 		
 		Event e = null;
 		
-		List<User> users = new ArrayList<User>();
+		List<String> users = new ArrayList<String>();
 		
 		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
@@ -120,9 +120,9 @@ public class DataBase {
 				//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 				String username = lineArr[i];
 				
-				User user = getUser(username);
+				//User user = getUser(username);
 				
-				users.add(user);
+				users.add(username);
 			}
 			
 			e = new Event(title, location, description, date);
@@ -223,6 +223,9 @@ public class DataBase {
 		StringBuilder sb = new StringBuilder();
 		String comma = ",";
 		
+		sb.append(theEvent.myTitle + comma);
+		sb.append(theEvent.myLocation + comma);
+		sb.append(theEvent.myDescription + comma);
 		
 		
 		usrFile.close();
