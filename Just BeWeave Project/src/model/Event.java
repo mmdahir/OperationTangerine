@@ -158,4 +158,18 @@ public class Event {
 		}
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		b.append(myTitle + "," );
+		b.append(myLocation + ",");
+		b.append(myDate + ",");
+		b.append(myDescription + ",");
+		
+		for (User u : myUsers) 
+			b.append(u + ",");
+		
+		return b.toString();
+	}
 }

@@ -39,4 +39,9 @@ public abstract class AbstractUser implements User {
 	public boolean equals(AbstractUser user1) {
 		return user1.myUserName == this.myUserName;
 	}
+	
+	@Override
+	public String toString() {
+		return myUserName;
+	}
 }
