@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-// NOTE THAT THE Events CSV WILL BE FORMATTED AS: TITLE, LOCATION, DESCRIPTION, MONTH, DATE, YEAR
+// NOTE THAT THE Events CSV WILL BE FORMATTED AS: TITLE, LOCATION, DESCRIPTION, MONTH, DATE, YEAR, USR1, USR2, etc
 //public Event(String theTitle, String theLocation, String theDescription, Date theDate)
 
 //NOTE THAT THE Users CSV WILL BE FORMATTED AS: USER1NAME, USER2PSWD, USER1BOOLEAN, ETC...
@@ -39,10 +39,10 @@ public class DataBase {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	private static String[] checkCSV(String theFile, String confVar, boolean getAll) 
+	private static LinkedList<String[]> checkCSV(String theFile, String confVar, boolean getAll) 
 			throws IOException, FileNotFoundException {
 		
-		LinkedList<String> list = new LinkedList<String>();
+		LinkedList<String[]> list = new LinkedList<String[]>();
 		
 		FileReader usrFile = new FileReader(new File(theFile));
 		BufferedReader brFile = new BufferedReader(usrFile);
@@ -56,13 +56,14 @@ public class DataBase {
 			//if (line.contains(confVar) && (lineArr = line.split(comma)).length > 1) {
 			if(getAll) {			
 				lineArr = line.split(comma); 
-				list.addAll(Arrays.asList(lineArr));
+				list.add(lineArr);
 				
 			} else if (line.contains(confVar)) {	
 				lineArr = line.split(comma); 	/* This line is repeated. If I'm looking
 				   								for a specific variable, I don't want to waste
 				   								time splitting a String unnecessarily. */
-				return lineArr;
+				list.add(lineArr);
+				return list;
 			}
 			
 		}
@@ -70,7 +71,7 @@ public class DataBase {
 		usrFile.close();
 		brFile.close();
 		
-		return (String[]) list.toArray();
+		return list;
 	}
 	
 	/**
@@ -85,8 +86,11 @@ public class DataBase {
 		
 		List<User> users = new ArrayList<User>();
 		
-		String[] lineArr = checkCSV("Events.csv", theEvent, false);
+		LinkedList<String[]> list = checkCSV("Events.csv", theEvent, false);
 		
+		if (list.size() < 1) return users;
+		
+		String[] lineArr = list.get(0);
 		
 		if (lineArr.length > 1) {
 			
@@ -116,20 +120,24 @@ public class DataBase {
 	 * @throws FileNotFoundException 
 	 */
 	public static List<Event> getEvents() throws FileNotFoundException, IOException {
+		
 		List<Event> events = new ArrayList<Event>();
 		
-		String[] list = checkCSV("Events.csv", "", true);
+		LinkedList<String[]> eventList = checkCSV("Events.csv", "", true);
 		
 		
-		for(int i = 0; i < list.length; i++) {
+		
+		
+		for(int i = 0; i < eventList.size(); i++) {
 			//public Event(String theTitle, String theLocation, String theDescription, Date theDate)
-			String title = list[i];
-			String loc = list[++i];
-			String des = list[++i];
-			String sDate = list[++i];
 			
-			Date date = new Date(Integer.parseInt(list[++i]), Integer.parseInt(list[++i]), 
-					Integer.parseInt(list[++i]));
+			String[] list = eventList.get(i);
+			
+			String title = list[0];
+			String loc = list[1];
+			String des = list[2];
+			Date date = new Date(Integer.parseInt(list[3]), Integer.parseInt(list[4]), 
+					Integer.parseInt(list[5]));
 			
 			Event e = new Event(title, loc, des, date);
 			events.add(e);
@@ -152,8 +160,13 @@ public class DataBase {
 		
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		//checkCSV(String theFile, String confVar, boolean getAll)
+		LinkedList<String[]> u = checkCSV("Events.csv", "Event1", false);
 		
+		
+		
+		LinkedList<Event> e = new LinkedList<Event>();
 	}
 	
 }
