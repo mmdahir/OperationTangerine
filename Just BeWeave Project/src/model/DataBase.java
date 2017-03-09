@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,6 +50,8 @@ public class DataBase {
 		LinkedList<String[]> list = new LinkedList<String[]>();
 		
 		FileReader usrFile = new FileReader(new File(theFile));
+		
+		@SuppressWarnings("resource")
 		BufferedReader brFile = new BufferedReader(usrFile);
 		
 		String line = "";
@@ -88,13 +89,15 @@ public class DataBase {
 	 * Pre: Expects a valid string of a valid event.
 	 * Post: A valid List of Users.
 	 */
-	public static List<User> getEvent(String theEvent) throws IOException {
+	public static Event getEvent(String theEvent) throws IOException {
+		
+		Event e = new Event("");
 		
 		List<User> users = new ArrayList<User>();
 		
 		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
-		if (list.size() < 1) return users;
+		if (list.size() < 1) return e;
 		
 		String[] lineArr = list.get(0);
 		
@@ -115,7 +118,9 @@ public class DataBase {
 			}
 		}	
 		
-		return users;
+		
+		
+		return e;
 	}
 	
 	/**
@@ -170,8 +175,6 @@ public class DataBase {
 		System.out.println("Start");
 		
 		LinkedList<String[]> u = checkCSV("src/model/Events.csv", "Event1", false);
-		
-		
 		
 		LinkedList<Event> e = new LinkedList<Event>();
 		
