@@ -34,7 +34,8 @@ public class Main extends Application {
 		//GridPane grid = new GridPane();
 		LoginPane login = new LoginPane();
 		EventsPane events = new EventsPane();
-//		//grid.setMinHeight(minHeight);
+
+		//		//grid.setMinHeight(minHeight);
 //		grid.setAlignment(Pos.CENTER);
 //		grid.setHgap(10);
 //		//grid.setPadding(new Insets(25, 25, 25, 25));

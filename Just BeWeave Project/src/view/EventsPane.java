@@ -23,8 +23,6 @@ private double minHeight = 500;
 
 {
 	this.setMinSize(minWidth, minHeight);
-	//this.setAlignment(Pos.TOP_CENTER);
-	//this.setHgap(10);
 	this.setPadding(new Insets(25, 25, 25, 25));
 	Text scenetitle = new Text("Upcoming Events");
 	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));

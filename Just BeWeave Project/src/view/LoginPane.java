@@ -21,8 +21,6 @@ public class LoginPane extends GridPane { {
 	this.setPadding(new Insets(20, 0, 0, 0));
 	this.setMinSize(250, 500);
 	
-	
-
 	// user name text field
 	Label userName = new Label("User Name:");
 	this.add(userName, 0, 1);
