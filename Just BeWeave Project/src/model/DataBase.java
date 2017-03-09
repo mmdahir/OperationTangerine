@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// NOTE THAT THE CSV WILL BE FORMATTED AS: EVENTNAME, USER1, USER2, ETC...
+// NOTE THAT THE CSV WILL BE FORMATTED AS: EVENTNAME, USER1Name, USER1pswd, USER1boolean, UETC...
+//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 
 public class DataBase {
 	
@@ -32,16 +33,27 @@ public class DataBase {
 			
 			String line = "";
 			String comma = ",";
+			String[] lineArr;
 			
 			while ((line = brFile.readLine()) != null) {
 				
-				
-				if (line.contains(theEvent)) {
+				if (line.contains(theEvent) && (lineArr = line.split(comma)).length > 1) {
+		
 					found = true;
-					String[] lineArr = line.split(comma);
 					
-					//for()
-					
+					for(int i = 1; i < lineArr.length; i++) {
+						//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
+						String username = lineArr[i];
+						String pswd = lineArr[++i];
+						
+						boolean isAdmin = false;
+						if(lineArr[++i].contains("t")) {
+							isAdmin = true;
+						}
+						
+						NonAdmin user = new NonAdmin(username, pswd, isAdmin);
+						users.add(user);
+					}
 					break;
 				}
 				
