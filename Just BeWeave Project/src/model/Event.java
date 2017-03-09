@@ -166,8 +166,8 @@ public class Event {
 		StringBuilder b = new StringBuilder();
 		b.append(myTitle + "," );
 		b.append(myLocation + ",");
-		b.append(myDate + ",");
 		b.append(myDescription + ",");
+		b.append(myDate + ",");
 		
 		for (User u : myUsers) 
 			b.append(u + ",");

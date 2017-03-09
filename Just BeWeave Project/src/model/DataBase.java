@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -219,9 +218,15 @@ public class DataBase {
 		return u;
 	}
 	
+	
+	/**
+	 * Appends an Event onto the CSV.
+	 * @param theEvent: The Event object to be saved.
+	 * @throws IOException
+	 */
 	public static void saveEvent(Event theEvent) throws IOException {
 		
-		FileWriter usrFile = new FileWriter(new File(myEventCSV));
+		FileWriter usrFile = new FileWriter(new File(myEventCSV), true);
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
 		brFile.append(theEvent.toString() + "\n");
@@ -230,12 +235,15 @@ public class DataBase {
 		usrFile.close();
 	}
 	
+	/**
+	 * Appends the User to the CSV.
+	 * @param theUser: The user object to be saved.
+	 * @throws IOException
+	 */
 	public static void saveUser(User theUser) throws IOException {
 		
-		FileWriter usrFile = new FileWriter(new File(myUserCSV));
+		FileWriter usrFile = new FileWriter(new File(myUserCSV), true);
 		BufferedWriter brFile = new BufferedWriter(usrFile);
-		
-		//brFile.newLine();
 		
 		brFile.append(theUser.getUserName() + ",");
 		brFile.append(theUser.getPassword() + ",");
@@ -253,10 +261,9 @@ public class DataBase {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		
-		
-		saveUser(new NonAdmin("NICOLE", "PSWDNICOLE", false));	
-		
+	
+		Event f = getEvent("Event1");
+		saveEvent(f);
 	}
 	
 }
