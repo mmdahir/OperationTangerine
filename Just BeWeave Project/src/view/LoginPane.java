@@ -1,5 +1,6 @@
 package view;
 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -145,14 +147,24 @@ public class LoginPane extends GridPane {
     	this.add(scenetitle, 1, 1, 1, 1);
     	
     	if (admin) {
-    		
+    		Button btn1 = new Button("Create Event");
 	    	Button btn2 = new Button("Edit events");
-	    	HBox hbBtn2 = new HBox(10);
+	    	VBox hbBtn2 = new VBox();
 	    	hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
-	    	hbBtn2.getChildren().add(btn2);
+	    	hbBtn2.getChildren().addAll(btn1, btn2);
 	    	this.add(hbBtn2, 1, 4);
 	    	
-	    	// action for sign in button
+	    	// action for create events
+	        btn1.setOnAction(new EventHandler<ActionEvent>() {
+	        	 
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	getChildren().clear();
+	            	
+	            }
+	        });
+	    	
+	    	// action for edit events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
 	        	 
 	            @Override
@@ -172,7 +184,7 @@ public class LoginPane extends GridPane {
 	    	hbBtn2.getChildren().add(btn2);
 	    	this.add(hbBtn2, 1, 4);
 	    	
-	    	// action for sign in button
+	    	// action for view your events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
 	        	 
 	            @Override
@@ -199,7 +211,7 @@ public class LoginPane extends GridPane {
     	TextField userTextField = new TextField();
     	this.add(userTextField, 1, 1);
     	
-    	// user name text field
+    	// password text field
     	Label password = new Label("Password:");
     	this.add(password, 0, 2);
 
@@ -215,30 +227,55 @@ public class LoginPane extends GridPane {
     	hbSave.getChildren().add(save);
     	this.add(hbSave, 1, 4);
     	
-    	// action for sign in button
+    	// action for submit button
         save.setOnAction(new EventHandler<ActionEvent>() {
         	 
             @Override
             public void handle(ActionEvent e) {
-            	getChildren().clear();
-            	if(passTextField.getText() == "" || userTextField.getText() == "") {
+            	
+            	myName = userTextField.getText();
+        		myPass = passTextField.getText();
+        		User newUser = null;
+				try {
+					newUser = myDataBase.verifyUser(userTextField.getText(), 
+							passTextField.getText());
+				} catch (FileNotFoundException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+        		
+            	if(myName.length() == 0 
+            			|| myPass.length() == 0
+            			&& newUser != null) {
             		actiontarget.setFill(Color.FIREBRICK);
             		actiontarget.setText("Invalid input");
             	}else {
-            		myName = userTextField.getText();
-            		myPass = passTextField.getText();
-            		User newUser = new NonAdmin(userTextField.getText(), passTextField.getText(), false);
+            		newUser = new NonAdmin(userTextField.getText(), 
+							passTextField.getText(), false);
             		try {
-						myDataBase.saveUser(newUser);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+    					myDataBase.saveUser(newUser);
+    				} catch (IOException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+            		getChildren().clear();
+            		update(myName, false);
             	}
-            	update(myName, false);
+            	
                
             }
         });
     	
     }
+    
+    /**
+     * Creates an event.
+     */
+    private void create() {
+    	
+    }
+    
 }
