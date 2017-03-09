@@ -38,7 +38,7 @@ public class DataBase {
 			while ((line = brFile.readLine()) != null) {
 				
 				if (line.contains(theEvent) && (lineArr = line.split(comma)).length > 1) {
-		
+					
 					found = true;
 					
 					for(int i = 1; i < lineArr.length; i++) {
@@ -64,7 +64,6 @@ public class DataBase {
 		} catch(FileNotFoundException e){
 			e.printStackTrace();
 		}
-		
 		
 		return users;
 	}
