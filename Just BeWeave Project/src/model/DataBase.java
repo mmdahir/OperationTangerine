@@ -1,21 +1,26 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataBase {
 
-	public static void getUsers() {
-		//hello
+	public static List<User> getUsers() {
+		List<User> users = new ArrayList<User>();
+		
+		return users;
 	}
 	
-	public static ArrayList<Event> getEvents() {
+	public static List<Event> getEvents() {
+		List<Event> events = new ArrayList<Event>();
 		
-		return null;
+		return events;
 	}
 	
 	public static User verifyUser(User user) {
+		User u = null;
 		
-		return null;
+		return u;
 	}
 	
 	public static void saveEvent(Event theEvent) {

@@ -33,14 +33,14 @@ public class Event {
 	/**
 	 * List of users participating in event.
 	 */
-	List <AbstractUser> myUsers;
+	List <User> myUsers;
 	
 	/**
 	 *
 	 */
 	public Event(String theTitle) {
 		myTitle = theTitle;
-		myUsers = new ArrayList<AbstractUser>();
+		myUsers = new ArrayList<User>();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class Event {
 		myLocation = theLocation;
 		myDescription = theDescription;
 		myDate = theDate;
-		myUsers = new ArrayList<AbstractUser>();
+		myUsers = new ArrayList<User>();
 	}
 	
 	/**
@@ -113,14 +113,14 @@ public class Event {
 	/**
 	 * 
 	 */
-	public void addUser(AbstractUser theUser) {
+	public void addUser(User theUser) {
 		myUsers.add(theUser);
 	}
 	
 	/**
 	 * 
 	 */
-	public void removeUser(AbstractUser theUser) {
+	public void removeUser(User theUser) {
 		for (int i = 0; i < myUsers.size(); i++) {
 			if (myUsers.get(i).equals(theUser)) {
 				myUsers.remove(i);
@@ -140,23 +140,25 @@ public class Event {
 	/**
 	 * 
 	 */
-	public AbstractUser getUser(int theIndex) {
+	public User getUser(int theIndex) {
+		User u = null;
 		if (theIndex < myUsers.size()) {
-			return myUsers.get(theIndex);
+			u = myUsers.get(theIndex);
 		}
-		return null;
+		return u;
 	}
 	
 	/**
 	 * 
 	 */
-	public AbstractUser getUser(String theUserName) {
+	public User getUser(String theUserName) {
+		User u = null;
 		for (int i = 0; i < myUsers.size(); i++) {
 			if (myUsers.get(i).getUserName() == theUserName) {
-				return myUsers.get(i);
+				u = myUsers.get(i);
 			}
 		}
-		return null;
+		return u;
 	}
 	
 	@Override
