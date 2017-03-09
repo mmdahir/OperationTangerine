@@ -28,7 +28,7 @@ public class DataBase {
 		boolean found = false;
 		
 		try {
-			FileReader usrFile = new FileReader(new File("UserFile.csv"));
+			FileReader usrFile = new FileReader(new File("Events.csv"));
 			BufferedReader brFile = new BufferedReader(usrFile);
 			
 			String line = "";
