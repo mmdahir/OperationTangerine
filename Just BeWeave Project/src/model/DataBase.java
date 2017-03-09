@@ -126,7 +126,7 @@ public class DataBase {
 			}
 			
 			e = new Event(title, location, description, date);
-			e.myUsers = users;
+			//e.myUsers = users; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		}	
 		
 		
@@ -220,13 +220,7 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myEventCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		StringBuilder sb = new StringBuilder();
-		String comma = ",";
-		
-		sb.append(theEvent.myTitle + comma);
-		sb.append(theEvent.myLocation + comma);
-		sb.append(theEvent.myDescription + comma);
-		
+		brFile.append(theEvent.toString() + "\n");
 		
 		usrFile.close();
 		brFile.close();
@@ -236,16 +230,23 @@ public class DataBase {
 		
 		FileWriter usrFile = new FileWriter(new File(myUserCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
-		
-		StringBuilder sb = new StringBuilder();
+
 		String comma = ",";
 		
+		brFile.append(theUser.getUserName() + comma);
+		brFile.append(theUser.getPassword() + comma);
+		if(theUser.isAdmin()) {
+			brFile.append("TRUE" + "\n");
+		} else {
+			brFile.append("FALSE" + "\n");
+		}
 		
 		usrFile.close();
 		brFile.close();
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
+		
 		System.out.println("Start:");
 		
 		/*
@@ -286,6 +287,10 @@ public class DataBase {
 		System.out.println(ex.getUserName().compareTo("BOB")); //0
 		System.out.println(ex.getUserName().compareTo("BB")); //not 0
 		*/
+		
+		User dk = getUser("BOB");
+		saveUser(dk);
+		saveEvent(f);
 	}
 	
 }
