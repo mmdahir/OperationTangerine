@@ -42,6 +42,6 @@ public abstract class AbstractUser implements User {
 	
 	@Override
 	public String toString() {
-		return myUserName;
+		return myUserName + "," + myPassword + "," + isAdmin + ",";
 	}
 }

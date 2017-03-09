@@ -86,7 +86,7 @@ public class Event {
 	 * 
 	 */
 	public void setDescription(String theDescription) {
-		myDescription = theDescription;
+		myDescription = "\"" + theDescription + "\"";
 	}
 	
 	/**
@@ -170,7 +170,7 @@ public class Event {
 		b.append(myDescription + ",");
 		
 		for (User u : myUsers) 
-			b.append(u + ",");
+			b.append(u.getUserName() + ",");
 		
 		return b.toString();
 	}
