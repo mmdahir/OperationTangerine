@@ -1,3 +1,8 @@
+/*
+ TCSS 360
+ Instructor: Professor Jeffery Weiss
+ */
+
 package model;
 
 import java.io.BufferedReader;
@@ -6,12 +11,23 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-// NOTE THAT THE CSV WILL BE FORMATTED AS: EVENTNAME, USER1Name, USER1pswd, USER1boolean, UETC...
+// NOTE THAT THE Events CSV WILL BE FORMATTED AS: TITLE, LOCATION, DESCRIPTION, MONTH, DATE, YEAR
+//public Event(String theTitle, String theLocation, String theDescription, Date theDate)
+
+//NOTE THAT THE Users CSV WILL BE FORMATTED AS: USER1NAME, USER2PSWD, USER1BOOLEAN, ETC...
 //NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 
+
+
+/**
+ * The DataBase class the will read and write to and from a CSV file.
+ * 
+ * @author Peter
+ */
 public class DataBase {
 	
 	/**
@@ -19,14 +35,14 @@ public class DataBase {
 	 * @param theFile: the name of the csv file I want to check.
 	 * @param confVar: Identifying string if I'm looking for a specific line in the csv.
 	 * @param getAll: A boolean to see if I want all lines in the csv file.
-	 * @return A LinkedList of String arrays.
+	 * @return A String array.
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	private static LinkedList<String[]> checkCSV(String theFile, String confVar, boolean getAll) 
+	private static String[] checkCSV(String theFile, String confVar, boolean getAll) 
 			throws IOException, FileNotFoundException {
 		
-		LinkedList<String[]> list = new LinkedList<String[]>();
+		LinkedList<String> list = new LinkedList<String>();
 		
 		FileReader usrFile = new FileReader(new File(theFile));
 		BufferedReader brFile = new BufferedReader(usrFile);
@@ -37,19 +53,16 @@ public class DataBase {
 		
 		while ((line = brFile.readLine()) != null) {
 			
-			
 			//if (line.contains(confVar) && (lineArr = line.split(comma)).length > 1) {
 			if(getAll) {			
 				lineArr = line.split(comma); 
-				list.add(lineArr);
+				list.addAll(Arrays.asList(lineArr));
 				
 			} else if (line.contains(confVar)) {	
 				lineArr = line.split(comma); 	/* This line is repeated. If I'm looking
 				   								for a specific variable, I don't want to waste
 				   								time splitting a String unnecessarily. */
-				
-				list.add((String[]) lineArr.clone());
-				break;
+				return lineArr;
 			}
 			
 		}
@@ -57,7 +70,7 @@ public class DataBase {
 		usrFile.close();
 		brFile.close();
 		
-		return list;
+		return (String[]) list.toArray();
 	}
 	
 	/**
@@ -72,11 +85,10 @@ public class DataBase {
 		
 		List<User> users = new ArrayList<User>();
 		
-		LinkedList<String[]> list = checkCSV("Events.csv", theEvent, false);
+		String[] lineArr = checkCSV("Events.csv", theEvent, false);
 		
-		String[] lineArr;
 		
-		if (list.size() > 0 && (lineArr = list.get(0)).length > 1) {
+		if (lineArr.length > 1) {
 			
 			for(int i = 1; i < lineArr.length; i++) {
 				//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
@@ -100,9 +112,28 @@ public class DataBase {
 	 * Get a list of events.
 	 * @return A List of Events.
 	 * Post: a valid list of Events.
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public static List<Event> getEvents() {
+	public static List<Event> getEvents() throws FileNotFoundException, IOException {
 		List<Event> events = new ArrayList<Event>();
+		
+		String[] list = checkCSV("Events.csv", "", true);
+		
+		
+		for(int i = 0; i < list.length; i++) {
+			//public Event(String theTitle, String theLocation, String theDescription, Date theDate)
+			String title = list[i];
+			String loc = list[++i];
+			String des = list[++i];
+			String sDate = list[++i];
+			
+			Date date = new Date(Integer.parseInt(list[++i]), Integer.parseInt(list[++i]), 
+					Integer.parseInt(list[++i]));
+			
+			Event e = new Event(title, loc, des, date);
+			events.add(e);
+		}
 		
 		return events;
 	}
@@ -118,6 +149,10 @@ public class DataBase {
 	}
 	
 	public static void saveUser(User theUser) {
+		
+	}
+	
+	public static void main(String[] args) {
 		
 	}
 	
