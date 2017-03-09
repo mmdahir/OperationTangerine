@@ -164,7 +164,7 @@ public class DataBase {
 		//checkCSV(String theFile, String confVar, boolean getAll)
 		System.out.println("Start");
 		
-		LinkedList<String[]> u = checkCSV("Events.csv", "Event1", false);
+		LinkedList<String[]> u = checkCSV("src/model/Events.csv", "Event1", false);
 		
 		
 		
