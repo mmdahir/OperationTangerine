@@ -6,10 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataBase {
+	
 	
 	/**
 	 * This method gets the users from an event.
@@ -17,9 +17,8 @@ public class DataBase {
 	 * @return The Array of Users in theEvent.
 	 * @throws IOException
 	 */
-	public static User[] getEventUsers(Event theEvent) throws IOException  {
-		
-		ArrayList<User> users = new ArrayList<User>();
+	public static List<User> getUsers() throws IOException {
+		List<User> users = new ArrayList<User>();
 		
 		try {
 			FileReader usrFile = new FileReader(new File("UserFile.csv"));
@@ -39,14 +38,8 @@ public class DataBase {
 		}
 		
 		
-		return (User[]) users.toArray();
-	
-	}
-	
-	public static List<User> getUsers() {
-		List<User> users = new ArrayList<User>();
-		
 		return users;
+		
 	}
 	
 	public static List<Event> getEvents() {
