@@ -100,7 +100,7 @@ public class DataBase {
 		
 		Event e = null;
 		
-		List<User> users = new ArrayList<User>();
+		//List<User> users = new ArrayList<User>();
 		
 		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
@@ -128,10 +128,7 @@ public class DataBase {
 				e.addUser(user);
 			}
 			
-			
-			
-			
-			e.myUsers = users;
+			//e.myUsers = users;
 		}	
 		
 		return e;
