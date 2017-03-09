@@ -226,8 +226,8 @@ public class DataBase {
 		
 		brFile.append(theEvent.toString() + "\n");
 		
-		usrFile.close();
 		brFile.close();
+		usrFile.close();
 	}
 	
 	public static void saveUser(User theUser) throws IOException {
@@ -235,17 +235,21 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myUserCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
+		//brFile.newLine();
+		
 		brFile.append(theUser.getUserName() + ",");
 		brFile.append(theUser.getPassword() + ",");
 		
 		if (theUser.isAdmin()) {
-			brFile.append("TRUE" + "\n");
+			brFile.append("TRUE");
 		} else {
-			brFile.append("FALSE" + "\n");
+			brFile.append("FALSE");
 		}
 		
-		usrFile.close();
+		brFile.newLine();
+		
 		brFile.close();
+		usrFile.close();
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
