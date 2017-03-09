@@ -59,14 +59,17 @@ public class DataBase {
 		String comma = ",";
 		String[] lineArr;
 		
-		while ((line = brFile.readLine()) != null && !line.contains("sKiPtHiS!@#")) {
+		while ((line = brFile.readLine()) != null) {
+			
+			boolean hasSkipLine = line.contains("sKiPtHiS!@#");
 			
 			//if (line.contains(confVar) && (lineArr = line.split(comma)).length > 1) {
-			if(getAll) {			
+			if(getAll && !hasSkipLine) {			
 				lineArr = line.split(comma); 
 				list.add(lineArr);
 				
-			} else if (line.contains(confVar)) {	
+			} else if (line.contains(confVar) && !hasSkipLine) {	
+				
 				lineArr = line.split(comma); 	/* This line is repeated. If I'm looking
 				   								for a specific variable, I don't want to waste
 				   								time splitting a String unnecessarily. */
@@ -92,7 +95,7 @@ public class DataBase {
 	 */
 	public static Event getEvent(String theEvent) throws IOException {
 		
-		Event e = new Event("");
+		Event e = null;
 		
 		List<User> users = new ArrayList<User>();
 		
@@ -102,21 +105,27 @@ public class DataBase {
 		
 		String[] lineArr = list.get(0);
 		
+		final int usrNameStartIdx = 6;
+		
 		if (lineArr.length > 1) {
+			//Event(String theTitle, String theLocation, String theDescription, Date theDate)
+			String title = lineArr[0];
+			String location = lineArr[1];
+			String description = lineArr[2];
+			Date date = new Date(Integer.parseInt(lineArr[3]), Integer.parseInt(lineArr[4]),
+					Integer.parseInt(lineArr[5]));
 			
-			for(int i = 1; i < lineArr.length; i++) {
+			for(int i = usrNameStartIdx; i < lineArr.length; i++) {
 				//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 				String username = lineArr[i];
-				String pswd = lineArr[++i];
 				
-				boolean isAdmin = false;
-				if(lineArr[++i].toLowerCase().contains("t")) {
-					isAdmin = true;
-				}
+				User user = getUser(username);
 				
-				NonAdmin user = new NonAdmin(username, pswd, isAdmin);
 				users.add(user);
 			}
+			
+			e = new Event(title, location, description, date);
+			e.myUsers = users;
 		}	
 		
 		
@@ -157,14 +166,41 @@ public class DataBase {
 		return events;
 	}
 	
-	public static User verifyUser(String userName, String password) {
-		User u = null;
+	public static User verifyUser(String userName, String password) 
+			throws FileNotFoundException, IOException {
+		User u = getUser(userName);
 		
-		return u;
+		if(u == null) return null;
+	
+		if(u.getPassword().compareTo(password) == 0) {
+			return u;
+		}
+		
+		return null;
 	}
 	
-	private static User verifyUser(String userName) {
+	/**
+	 * Gets a user.
+	 * @param userName: String form of the user name.
+	 * @return a valid User object (if it exists).
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 */
+	private static User getUser(String userName) throws FileNotFoundException, IOException {
+		
 		User u = null;
+		
+		LinkedList<String[]> list = checkCSV(myUserCSV, userName, false);
+		
+		if(list.size() < 1) return u;
+		
+		String[] arr = list.get(0);
+		
+		if(arr[2].toLowerCase().contains("f")) {
+			u = new NonAdmin(arr[0], arr[1], false);
+		} else {
+			u = new Admin(arr[0], arr[1], true);
+		}
 		
 		return u;
 	}
@@ -179,72 +215,26 @@ public class DataBase {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		//checkCSV(String theFile, String confVar, boolean getAll)
-		System.out.println("Start");
+		System.out.println("Start:");
 		
-		LinkedList<String[]> u = checkCSV("src/model/Events.csv", "Event1", false);
+		LinkedList<String[]> u = checkCSV(myEventCSV, "Event1", false);
 		
+		//System.out.println(u.size());
 		System.out.println(Arrays.deepToString(u.get(0)));
 		
-		/////////////////////
-		System.out.println("\nMiddle\n");
-		/////////////////////
+		System.out.println("\n______________________\n");
 		
-		LinkedList<Event> e = new LinkedList<Event>();
+		List<Event> e = getEvents();
 		
 		for(int i = 0; i < e.size(); i++) {
 			System.out.println(e.get(i).toString());
 		}
 		
-		System.out.println("End");
+		System.out.println("\n______________________\n");
+		
+		Event f = getEvent("Event1");
+		System.out.println(f.toString());
+		System.out.println("\nEnd");
 	}
 	
 }
-
-
-/*
-//getUser sample
-List<User> users = new ArrayList<User>();
-		
-		boolean found = false;
-		
-		try {
-			FileReader usrFile = new FileReader(new File("Events.csv"));
-			BufferedReader brFile = new BufferedReader(usrFile);
-			
-			String line = "";
-			String comma = ",";
-			String[] lineArr;
-			
-			while ((line = brFile.readLine()) != null) {
-				
-				if (line.contains(theEvent) && (lineArr = line.split(comma)).length > 1) {
-					
-					found = true;
-					
-					for(int i = 1; i < lineArr.length; i++) {
-						//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
-						String username = lineArr[i];
-						String pswd = lineArr[++i];
-						
-						boolean isAdmin = false;
-						if(lineArr[++i].contains("t")) {
-							isAdmin = true;
-						}
-						
-						NonAdmin user = new NonAdmin(username, pswd, isAdmin);
-						users.add(user);
-					}
-					break;
-				}
-				
-			}
-			
-			usrFile.close();
-			brFile.close();
-		} catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		
-		return users;
-
-*/
