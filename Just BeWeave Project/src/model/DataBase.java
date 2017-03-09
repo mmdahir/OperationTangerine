@@ -259,17 +259,17 @@ public class DataBase {
 		brFile.close();
 		usrFile.close();
 	}
-	
-	public static void main(String[] args) throws FileNotFoundException, IOException {
-	
-		Event f = getEvent("Event1");
-		saveEvent(f);
-	}
-	
+		
 }
 
 /*
-System.out.println("Start:");
+		public static void main(String[] args) throws FileNotFoundException, IOException {
+	
+			Event f = getEvent("Event1");
+			saveEvent(f);
+		}
+		
+		System.out.println("Start:");
 		
 		
 		//TEST CASE FOR checkCSV
