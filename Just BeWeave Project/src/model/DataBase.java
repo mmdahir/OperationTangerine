@@ -30,6 +30,12 @@ import java.util.List;
  */
 public class DataBase {
 	
+	/** The directory to the Events.csv */
+	private static String myEventCSV = "src/model/Events.csv";
+	
+	/** The directory to the Events.csv */
+	private static String myUserCSV = "src/model/Users.csv";
+	
 	/**
 	 * Grabs either one line or all the lines from a csv file.
 	 * @param theFile: the name of the csv file I want to check.
@@ -82,11 +88,11 @@ public class DataBase {
 	 * Pre: Expects a valid string of a valid event.
 	 * Post: A valid List of Users.
 	 */
-	public static List<User> getUsers(String theEvent) throws IOException {
+	public static List<User> getEvent(String theEvent) throws IOException {
 		
 		List<User> users = new ArrayList<User>();
 		
-		LinkedList<String[]> list = checkCSV("Events.csv", theEvent, false);
+		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
 		if (list.size() < 1) return users;
 		
@@ -123,8 +129,7 @@ public class DataBase {
 		
 		List<Event> events = new ArrayList<Event>();
 		
-		LinkedList<String[]> eventList = checkCSV("Events.csv", "", true);
-		
+		LinkedList<String[]> eventList = checkCSV(myEventCSV, "", true);
 		
 		
 		
