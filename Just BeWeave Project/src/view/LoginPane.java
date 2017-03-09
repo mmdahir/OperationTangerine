@@ -85,6 +85,8 @@ public class LoginPane extends GridPane {
     	 
         @Override
         public void handle(ActionEvent e) {
+        	
+        	System.out.println("WORK");
         	myName = userTextField.getText();
         	myPass = pwBox.getText();
         	
