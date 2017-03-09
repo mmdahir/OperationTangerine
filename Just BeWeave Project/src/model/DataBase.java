@@ -17,7 +17,7 @@ public class DataBase {
 		return events;
 	}
 	
-	public static User verifyUser(User user) {
+	public static User verifyUser(String userName, String password) {
 		User u = null;
 		
 		return u;
