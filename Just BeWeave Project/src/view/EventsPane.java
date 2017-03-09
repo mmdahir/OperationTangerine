@@ -3,83 +3,70 @@ package view;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
-public class EventsPane extends BorderPane { 
+public class EventsPane extends VBox { 
 	
 private double minWidth = 750;
 private double minHeight = 500;
 
 {
+	Label title = new Label("Upcoming Events");
+	
+	title.setFont(new Font("Arial", 30));
+	//title.setTextFill(Color.GREY);
+	//title.setBackground(new Background(new BackgroundFill(Color.ORANGERED, 
+	//		                           new CornerRadii(10), 
+	//		                           new Insets(0, -235, 0, -235))));
+	
+	System.out.println(title.getFont().getName());
+	
+	this.setAlignment(Pos.TOP_CENTER);
 	this.setMinSize(minWidth, minHeight);
 	this.setPadding(new Insets(25, 25, 25, 25));
-	Text scenetitle = new Text("Upcoming Events");
-	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
-	this.setTop(scenetitle); //(scenetitle, 0, 0, 2, 1);
-	this.setCenter(addScrollBox());
-
-}
-
-public VBox addVBox() {
-    
-	VBox vbox = new VBox();
-    vbox.setPadding(new Insets(10));
-    vbox.setSpacing(8);
-
-    Text title = new Text("Data");
-    title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-    vbox.getChildren().add(title);
-
-    Hyperlink options[] = new Hyperlink[] {
-        new Hyperlink("Sales"),
-        new Hyperlink("Marketing"),
-        new Hyperlink("Distribution"),
-        new Hyperlink("Costs")};
-
-    for (int i=0; i<4; i++) {
-        VBox.setMargin(options[i], new Insets(0, 0, 0, 8));
-        vbox.getChildren().add(options[i]);
-    }
-
-    return vbox;
+	this.getChildren().addAll(title, addScrollBox());
+	//this.setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
 }
 
 public VBox addScrollBox() {
 	
     final VBox vbox = new VBox();
-    DropShadow shadow = new DropShadow();
     final ScrollBar scroll = new ScrollBar();
-    
-    //Group root = new Group();
-    Scene scene = new Scene(vbox, 180, 180);
-    //this.set(scene);
+    final DropShadow shadow = new DropShadow();
+    final Scene scene = new Scene(vbox, 180, 180);
 
-    vbox.setStyle("-fx-background-color: #B0C4DE;");
     vbox.getChildren().add(scroll);
+    vbox.setAlignment(Pos.BASELINE_RIGHT);
+    vbox.setStyle("-fx-background-color: #EB5A11;");
+    
+    //LIGHT GREY #CCCCCC
+    //LIGHT BLUE #B0C4DE
+    //DARK BLUE #003366
+    //ORANGE #EB5A11
 
-    shadow.setColor(Color.GREY);
+    shadow.setColor(Color.ORANGERED);
     shadow.setOffsetX(2);
     shadow.setOffsetY(2);
 
     vbox.setLayoutX(5);
     vbox.setSpacing(10);
+    vbox.setMinWidth(700);
 
     scroll.setLayoutX(this.getWidth()-scroll.getWidth());
-    scroll.setMin(0);
     scroll.setOrientation(Orientation.VERTICAL);
     scroll.setPrefHeight(425);
-    scroll.setMax(360);
+    scroll.setEffect(shadow);
+    scroll.setMax(500);
+    scroll.setMin(0);
     
     return vbox;
 }
