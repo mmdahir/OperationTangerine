@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class DataBase {
 		String comma = ",";
 		String[] lineArr;
 		
-		while ((line = brFile.readLine()) != null) {
+		while ((line = brFile.readLine()) != null && !line.contains("sKiPtHiS!@#")) {
 			
 			//if (line.contains(confVar) && (lineArr = line.split(comma)).length > 1) {
 			if(getAll) {			
@@ -162,6 +163,12 @@ public class DataBase {
 		return u;
 	}
 	
+	private static User verifyUser(String userName) {
+		User u = null;
+		
+		return u;
+	}
+	
 	public static void saveEvent(Event theEvent) {
 		
 	}
@@ -176,7 +183,17 @@ public class DataBase {
 		
 		LinkedList<String[]> u = checkCSV("src/model/Events.csv", "Event1", false);
 		
+		System.out.println(Arrays.deepToString(u.get(0)));
+		
+		/////////////////////
+		System.out.println("\nMiddle\n");
+		/////////////////////
+		
 		LinkedList<Event> e = new LinkedList<Event>();
+		
+		for(int i = 0; i < e.size(); i++) {
+			System.out.println(e.get(i).toString());
+		}
 		
 		System.out.println("End");
 	}
