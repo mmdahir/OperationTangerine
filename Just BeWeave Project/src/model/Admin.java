@@ -7,5 +7,4 @@ public class Admin extends AbstractUser {
 	}
 	
 	/*Whats up guys*/
-
 }

@@ -18,10 +18,9 @@ public class LoginPane extends GridPane { {
 
 	this.setAlignment(Pos.TOP_CENTER);
 	this.setHgap(10);
-	this.setPadding(new Insets(25, 25, 25, 25));
+	this.setPadding(new Insets(20, 0, 0, 0));
+	this.setMinSize(250, 500);
 	
-	
-
 	// user name text field
 	Label userName = new Label("User Name:");
 	this.add(userName, 0, 1);
@@ -61,11 +60,15 @@ public class LoginPane extends GridPane { {
     });
 }
     public void update(String theName, Boolean admin) {
-    	Text scenetitle = new Text(theName);
-    	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
-    	this.add(scenetitle, 0, 0, 2, 1);
     	
-    	if(admin) {
+    	Text scenetitle = new Text(theName);
+    	
+    	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+    	
+    	this.add(scenetitle, 1, 1, 1, 1);
+    	
+    	if (admin) {
+    		
 	    	Button btn2 = new Button("Edit events");
 	    	HBox hbBtn2 = new HBox(10);
 	    	hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
@@ -83,7 +86,9 @@ public class LoginPane extends GridPane { {
 	        });
     	
     	}
+    	
     	else {
+    		
     		Button btn2 = new Button("View your events");
 	    	HBox hbBtn2 = new HBox(10);
 	    	hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
