@@ -3,14 +3,17 @@ package view;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -160,7 +163,7 @@ public class LoginPane extends GridPane {
 	            @Override
 	            public void handle(ActionEvent e) {
 	            	getChildren().clear();
-	            	
+	            	create();
 	            }
 	        });
 	    	
@@ -237,8 +240,7 @@ public class LoginPane extends GridPane {
         		myPass = passTextField.getText();
         		User newUser = null;
 				try {
-					newUser = myDataBase.verifyUser(userTextField.getText(), 
-							passTextField.getText());
+					newUser = myDataBase.verifyUser(myName, myPass);
 				} catch (FileNotFoundException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -248,8 +250,10 @@ public class LoginPane extends GridPane {
 				}
         		
             	if(myName.length() == 0 
-            			|| myPass.length() == 0
-            			&& newUser != null) {
+            			|| myPass.length() == 0) {
+            		actiontarget.setFill(Color.FIREBRICK);
+            		actiontarget.setText("Invalid input");
+            	}else if(newUser != null) {
             		actiontarget.setFill(Color.FIREBRICK);
             		actiontarget.setText("Invalid input");
             	}else {
@@ -275,7 +279,62 @@ public class LoginPane extends GridPane {
      * Creates an event.
      */
     private void create() {
+    	Text scenetitle = new Text("Create Event");
+    	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
+    	this.add(scenetitle, 0, 0, 2, 1);
     	
+    	// event title text field
+    	Label eName = new Label("Event Title:");
+    	this.add(eName, 0, 1);
+
+    	TextField eNameTF = new TextField();
+    	this.add(eNameTF, 1, 1);
+    	
+    	// event location text field
+    	Label loc = new Label("Location:");
+    	this.add(loc, 0, 2);
+
+    	TextField locTF = new TextField();
+    	this.add(locTF, 1, 2);
+    	
+    	// event description text field
+    	Label desc = new Label("Description:");
+    	this.add(desc, 0, 3);
+
+    	TextArea descTF = new TextArea();
+    	this.add(descTF, 1, 3);
+    	descTF.setPrefSize(150, 200);
+    	descTF.setPrefRowCount(10);
+    	descTF.setWrapText(true);
+    	
+    	// event date
+    	Label dateT = new Label("Date:");
+    	this.add(dateT, 0, 4);
+    	VBox dateBox = new VBox(20);
+    	DatePicker date = new DatePicker();
+    	date.setValue(LocalDate.now());
+        dateBox.getChildren().add(date);
+        this.add(dateBox, 1, 4);
+    	
+        // submit button
+        Button save = new Button("Submit");
+    	HBox hbSave = new HBox(10);
+    	hbSave.setAlignment(Pos.BOTTOM_RIGHT);
+    	hbSave.getChildren().add(save);
+    	this.add(hbSave, 1, 5);
+    	
+    	// action for submit button
+        save.setOnAction(new EventHandler<ActionEvent>() {
+        	 
+            @Override
+            public void handle(ActionEvent e) {
+            	Date date1 = new Date(12, 12, 12)
+            	Event event = new Event(eName.getText(), loc.getText(),descTF.getText(),date.getValue());
+            	myDataBase.saveEvent(event);
+            	getChildren().clear();
+            	update(myName, true);
+            }
+        });
     }
     
 }
