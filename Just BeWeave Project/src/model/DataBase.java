@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// NOTE THAT THE CSV WILL BE FORMATTED AS: EVENTNAME, USER1, USER2, ETC...
+
 public class DataBase {
-	
 	
 	/**
 	 * This method gets the users from an event.
@@ -20,7 +21,10 @@ public class DataBase {
 	 * Post: A valid List of Users.
 	 */
 	public static List<User> getUsers(String theEvent) throws IOException {
+		
 		List<User> users = new ArrayList<User>();
+		
+		boolean found = false;
 		
 		try {
 			FileReader usrFile = new FileReader(new File("UserFile.csv"));
@@ -30,7 +34,17 @@ public class DataBase {
 			String comma = ",";
 			
 			while ((line = brFile.readLine()) != null) {
-				String[] lineArr = line.split(comma);
+				
+				
+				if (line.contains(theEvent)) {
+					found = true;
+					String[] lineArr = line.split(comma);
+					
+					//for()
+					
+					break;
+				}
+				
 			}
 			
 			usrFile.close();
@@ -41,8 +55,9 @@ public class DataBase {
 		
 		
 		return users;
-		
 	}
+	
+	
 	
 	public static List<Event> getEvents() {
 		List<Event> events = new ArrayList<Event>();
