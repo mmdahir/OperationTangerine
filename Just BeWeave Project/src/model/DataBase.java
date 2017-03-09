@@ -13,11 +13,13 @@ public class DataBase {
 	
 	/**
 	 * This method gets the users from an event.
-	 * @param theEvent: The Event I want the users for.
+	 * @param theEvent: The String event name.
 	 * @return The Array of Users in theEvent.
 	 * @throws IOException
+	 * Pre: Expects a valid string of a valid event.
+	 * Post: A valid List of Users.
 	 */
-	public static List<User> getUsers() throws IOException {
+	public static List<User> getUsers(String theEvent) throws IOException {
 		List<User> users = new ArrayList<User>();
 		
 		try {
