@@ -117,7 +117,6 @@ public class DataBase {
 					Integer.parseInt(lineArr[5]));
 			
 			for(int i = usrNameStartIdx; i < lineArr.length; i++) {
-				//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 				String username = lineArr[i];
 				
 				User user = getUser(username);
@@ -126,10 +125,10 @@ public class DataBase {
 			}
 			
 			e = new Event(title, location, description, date);
+			
+			
 			e.myUsers = users;
 		}	
-		
-		
 		
 		return e;
 	}
@@ -220,10 +219,7 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myEventCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		StringBuilder sb = new StringBuilder();
-		String comma = ",";
-		
-		
+		brFile.write(theEvent.toString() + "\n");
 		
 		usrFile.close();
 		brFile.close();
@@ -234,9 +230,14 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myUserCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		StringBuilder sb = new StringBuilder();
-		String comma = ",";
+		brFile.write(theUser.getUserName() + ",");
+		brFile.write(theUser.getPassword() + ",");
 		
+		if (theUser.isAdmin()) {
+			brFile.write("TRUE" + "\n");
+		} else {
+			brFile.write("FALSE" + "\n");
+		}
 		
 		usrFile.close();
 		brFile.close();
@@ -253,7 +254,20 @@ public class DataBase {
 		System.out.println("\n______________________\n");
 		*/
 		
-		//TEST CASE FOR getEvents
+		
+		
+		/*
+		//TESTCASE FOR getUSer
+		User ex = getUser("BOB");
+		System.out.println(ex.getUserName().compareTo("BOB")); //0
+		System.out.println(ex.getUserName().compareTo("BB")); //not 0
+		*/
+	}
+	
+}
+
+/*
+ 		//TEST CASE FOR getEvents
 		List<Event> e = getEvents();
 		
 		for(int i = 0; i < e.size(); i++) {
@@ -276,13 +290,4 @@ public class DataBase {
 		verifyUser("KAKA", "PSWDBOB");
 		
 		System.out.println("\n______________________\n");
-		
-		/*
-		//TESTCASE FOR getUSer
-		User ex = getUser("BOB");
-		System.out.println(ex.getUserName().compareTo("BOB")); //0
-		System.out.println(ex.getUserName().compareTo("BB")); //not 0
-		*/
-	}
-	
-}
+*/
