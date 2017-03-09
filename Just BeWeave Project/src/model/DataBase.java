@@ -96,7 +96,7 @@ public class DataBase {
 				String pswd = lineArr[++i];
 				
 				boolean isAdmin = false;
-				if(lineArr[++i].contains("t")) {
+				if(lineArr[++i].toLowerCase().contains("t")) {
 					isAdmin = true;
 				}
 				
