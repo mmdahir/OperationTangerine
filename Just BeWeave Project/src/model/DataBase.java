@@ -98,7 +98,7 @@ public class DataBase {
 		
 		Event e = null;
 		
-		List<String> users = new ArrayList<String>();
+		List<User> users = new ArrayList<User>();
 		
 		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
@@ -120,13 +120,13 @@ public class DataBase {
 				//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 				String username = lineArr[i];
 				
-				//User user = getUser(username);
+				User user = getUser(username);
 				
-				users.add(username);
+				users.add(user);
 			}
 			
 			e = new Event(title, location, description, date);
-			//e.myUsers = users; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			e.myUsers = users;
 		}	
 		
 		
@@ -220,7 +220,10 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myEventCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		brFile.append(theEvent.toString() + "\n");
+		StringBuilder sb = new StringBuilder();
+		String comma = ",";
+		
+		
 		
 		usrFile.close();
 		brFile.close();
@@ -230,23 +233,16 @@ public class DataBase {
 		
 		FileWriter usrFile = new FileWriter(new File(myUserCSV));
 		BufferedWriter brFile = new BufferedWriter(usrFile);
-
+		
+		StringBuilder sb = new StringBuilder();
 		String comma = ",";
 		
-		brFile.append(theUser.getUserName() + comma);
-		brFile.append(theUser.getPassword() + comma);
-		if(theUser.isAdmin()) {
-			brFile.append("TRUE" + "\n");
-		} else {
-			brFile.append("FALSE" + "\n");
-		}
 		
 		usrFile.close();
 		brFile.close();
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		
 		System.out.println("Start:");
 		
 		/*
@@ -287,10 +283,6 @@ public class DataBase {
 		System.out.println(ex.getUserName().compareTo("BOB")); //0
 		System.out.println(ex.getUserName().compareTo("BB")); //not 0
 		*/
-		
-		User dk = getUser("BOB");
-		saveUser(dk);
-		saveEvent(f);
 	}
 	
 }
