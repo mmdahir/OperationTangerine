@@ -52,8 +52,6 @@ public class DataBase {
 		LinkedList<String[]> list = new LinkedList<String[]>();
 		
 		FileReader usrFile = new FileReader(new File(theFile));
-		
-		@SuppressWarnings("resource")
 		BufferedReader brFile = new BufferedReader(usrFile);
 		
 		String line = "";
@@ -75,6 +73,10 @@ public class DataBase {
 				   								for a specific variable, I don't want to waste
 				   								time splitting a String unnecessarily. */
 				list.add(lineArr);
+				
+				usrFile.close();
+				brFile.close();
+				
 				return list;
 			}
 			
@@ -98,7 +100,7 @@ public class DataBase {
 		
 		Event e = null;
 		
-		List<User> users = new ArrayList<User>();
+		//List<User> users = new ArrayList<User>();
 		
 		LinkedList<String[]> list = checkCSV(myEventCSV, theEvent, false);
 		
@@ -116,20 +118,18 @@ public class DataBase {
 			Date date = new Date(Integer.parseInt(lineArr[3]), Integer.parseInt(lineArr[4]),
 					Integer.parseInt(lineArr[5]));
 			
+			e = new Event(title, location, description, date);
+			
 			for(int i = usrNameStartIdx; i < lineArr.length; i++) {
-				//NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 				String username = lineArr[i];
 				
 				User user = getUser(username);
 				
-				users.add(user);
+				e.addUser(user);
 			}
 			
-			e = new Event(title, location, description, date);
-			e.myUsers = users;
+			//e.myUsers = users;
 		}	
-		
-		
 		
 		return e;
 	}
@@ -206,52 +206,106 @@ public class DataBase {
 		
 		String[] arr = list.get(0);
 		
+		//System.out.println(Arrays.toString(arr));
+		
 		if(arr[2].toLowerCase().contains("f")) {
-			u = new NonAdmin(arr[0], arr[1], false);
+			u = new NonAdmin(arr[0], arr[1]);
 		} else {
-			u = new Admin(arr[0], arr[1], true);
+			u = new Admin(arr[0], arr[1]);
 		}
 		
 		return u;
 	}
 	
+	/**
+	 * Deletes an Event from the CSV file.
+	 * @param theEvent: the event's name to be deleted.
+	 * @throws IOException 
+	 */
+	public static void deleteEvent(String theEvent) throws IOException {
+		
+		File file = new File(myEventCSV);
+		FileWriter fileW = new FileWriter(file, true);
+        BufferedWriter out = new BufferedWriter(fileW);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        
+        String line;
+        while ((line = br.readLine()) != null) {
+           if(line.contains(theEvent)) {
+               out.write("");
+           }
+        }
+        br.close();
+
+        out.close();
+		
+	}
+	
+	public static void main (String[] args) throws IOException {
+		deleteEvent("Event1");
+	}
+	
+	/**
+	 * Appends an Event onto the CSV.
+	 * @param theEvent: The Event object to be saved.
+	 * @throws IOException
+	 */
 	public static void saveEvent(Event theEvent) throws IOException {
 		
-		FileWriter usrFile = new FileWriter(new File(myEventCSV));
+		FileWriter usrFile = new FileWriter(new File(myEventCSV), true);
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		StringBuilder sb = new StringBuilder();
-		String comma = ",";
+		brFile.append(theEvent.toString() + "\n");
 		
-		
-		
-		usrFile.close();
 		brFile.close();
+		usrFile.close();
 	}
 	
+	/**
+	 * Appends the User to the CSV.
+	 * @param theUser: The user object to be saved.
+	 * @throws IOException
+	 */
 	public static void saveUser(User theUser) throws IOException {
 		
-		FileWriter usrFile = new FileWriter(new File(myUserCSV));
+		FileWriter usrFile = new FileWriter(new File(myUserCSV), true);
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		StringBuilder sb = new StringBuilder();
-		String comma = ",";
+		brFile.append(theUser.getUserName() + ",");
+		brFile.append(theUser.getPassword() + ",");
 		
+		if (theUser.isAdmin()) {
+			brFile.append("TRUE");
+		} else {
+			brFile.append("FALSE");
+		}
 		
-		usrFile.close();
+		brFile.newLine();
+		
 		brFile.close();
+		usrFile.close();
 	}
+		
+}
+
+
+/*
+		public static void main(String[] args) throws FileNotFoundException, IOException {
 	
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+			Event f = getEvent("Event1");
+			saveEvent(f);
+		}
+		
 		System.out.println("Start:");
 		
-		/*
+		
 		//TEST CASE FOR checkCSV
 		LinkedList<String[]> u = checkCSV(myEventCSV, "Event1", false);
 		System.out.println(Arrays.deepToString(u.get(0)));
 		
 		System.out.println("\n______________________\n");
-		*/
+		
+		
 		
 		//TEST CASE FOR getEvents
 		List<Event> e = getEvents();
@@ -274,15 +328,13 @@ public class DataBase {
 		verifyUser("BOB", "PSWDBOB");
 		verifyUser("KAKA", "PSWDKAKA");
 		verifyUser("KAKA", "PSWDBOB");
-		
-		System.out.println("\n______________________\n");
-		
-		/*
 		//TESTCASE FOR getUSer
 		User ex = getUser("BOB");
 		System.out.println(ex.getUserName().compareTo("BOB")); //0
 		System.out.println(ex.getUserName().compareTo("BB")); //not 0
-		*/
-	}
-	
-}
+		
+		System.out.println("\n______________________\n");
+		
+		saveEvent(f);
+		saveUser(new NonAdmin("NICOLE", "PSWDNICOLE", false));	
+*/
