@@ -212,9 +212,9 @@ public class DataBase {
 		//System.out.println(Arrays.toString(arr));
 		
 		if(arr[2].toLowerCase().contains("f")) {
-			u = new NonAdmin(arr[0], arr[1], false);
+			u = new NonAdmin(arr[0], arr[1]);
 		} else {
-			u = new Admin(arr[0], arr[1], true);
+			u = new Admin(arr[0], arr[1]);
 		}
 		
 		return u;

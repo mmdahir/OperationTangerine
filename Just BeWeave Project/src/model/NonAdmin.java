@@ -8,8 +8,8 @@ public class NonAdmin extends AbstractUser {
 
 	List<String> myEvents;
 	
-	public NonAdmin(String theUserName, String thePassword, boolean theAdmin) {
-		super(theUserName, thePassword, theAdmin);
+	public NonAdmin(String theUserName, String thePassword) {
+		super(theUserName, thePassword, false);
 		
 		myEvents = new ArrayList<String>();
 	}

@@ -2,9 +2,7 @@ package model;
 
 public class Admin extends AbstractUser {
 
-	public Admin(String theUserName, String thePassword, boolean theAdmin) {
-		super(theUserName, thePassword, theAdmin);
+	public Admin(String theUserName, String thePassword) {
+		super(theUserName, thePassword, true);
 	}
-	
-	/*Whats up guys*/
 }
