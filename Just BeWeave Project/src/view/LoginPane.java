@@ -248,7 +248,22 @@ public class LoginPane extends GridPane {
     	HBox hbSave = new HBox(10);
     	hbSave.setAlignment(Pos.BOTTOM_RIGHT);
     	hbSave.getChildren().add(save);
+    	
+    	Button back = new Button("Cancel");
+        hbSave.getChildren().add(back);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	login();
+            }
+    	});
+    	
     	this.add(hbSave, 1, 4);
+    	
+    	
     	
     	// action for submit button
         save.setOnAction(new EventHandler<ActionEvent>() {
