@@ -209,7 +209,7 @@ public class LoginPane extends GridPane {
     	// user name text field
     	Label userName = new Label("User Name:");
     	this.add(userName, 0, 1);
-
+    	
     	TextField userTextField = new TextField();
     	this.add(userTextField, 1, 1);
     	
