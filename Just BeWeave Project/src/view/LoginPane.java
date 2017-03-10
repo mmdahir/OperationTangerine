@@ -324,8 +324,9 @@ public class LoginPane extends GridPane {
             @Override
             public void handle(ActionEvent e) {
             	
-            	Date date1 = new Date(12, 12, 12);
-            	Event event = new Event(eName.getText(), loc.getText(),descTF.getText(),date1);
+            	Date date1 = new Date(date.getValue().getMonthValue(), 
+            			date.getValue().getDayOfMonth(), date.getValue().getYear());
+            	Event event = new Event(eNameTF.getText(), loc.getText(),descTF.getText(),date1);
             	
             	try {
 					DataBase.saveEvent(event);
