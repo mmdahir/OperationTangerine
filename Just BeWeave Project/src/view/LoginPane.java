@@ -173,7 +173,6 @@ public class LoginPane extends GridPane {
 	            	
 	            }
 	        });
-    	
     	}
     	
     	else {
@@ -263,9 +262,7 @@ public class LoginPane extends GridPane {
     				}
             		getChildren().clear();
             		update(myName, false);
-            	}
-            	
-               
+            	}  
             }
         });
     	

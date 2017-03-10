@@ -34,10 +34,10 @@ private double minHeight = 500;
 	Label title = new Label("Upcoming Events");
 	
 	title.setFont(new Font("Cooper Black", 30));
-	//title.setTextFill(Color.GREY);
-	//title.setBackground(new Background(new BackgroundFill(Color.ORANGERED, 
-	//		                           new CornerRadii(10), 
-	//		                           new Insets(0, -235, 0, -235))));
+//	title.setTextFill(Color.GREY);
+//	title.setBackground(new Background(new BackgroundFill(Color.ORANGERED, 
+//			                           new CornerRadii(10), 
+//			                           new Insets(0, -235, 0, -235))));
 	
 	System.out.println(title.getFont().getName());
 	
