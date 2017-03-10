@@ -133,8 +133,6 @@ public class LoginPane extends GridPane {
         	register();
         }
 	});
-	
-    
 }
 	/**
 	 * Opens account window for admin and user.
