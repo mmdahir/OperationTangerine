@@ -203,7 +203,7 @@ public class LoginPane extends GridPane {
      */
     public void register() {
     	Text scenetitle = new Text("Register");
-    	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
+    	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
     	this.add(scenetitle, 0, 0, 2, 1);
     	
     	// user name text field
