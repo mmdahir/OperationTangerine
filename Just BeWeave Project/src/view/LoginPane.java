@@ -4,6 +4,7 @@ package view;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,8 +39,6 @@ import model.User;
  */
 public class LoginPane extends GridPane {
 	
-	/** Data base used to access csv file. */
-	//private DataBase DataBase = new DataBase();
 	
 	/** Current User. */
 	private User myUser;
@@ -56,83 +55,8 @@ public class LoginPane extends GridPane {
 	this.setHgap(10);
 	this.setPadding(new Insets(60, 0, 0, 0));
 	this.setMinSize(250, 500);
+	login();
 	
-	Text scenetitle = new Text("LOGIN:");
-	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
-	this.add(scenetitle, 0, 0, 2, 1);
-	
-	// user name text field
-	Label userName = new Label("User Name:");
-	this.add(userName, 0, 1);
-
-	TextField userTextField = new TextField();
-	this.add(userTextField, 1, 1);
-
-	// password text field
-	Label pw = new Label("Password:");
-	this.add(pw, 0, 2);
-
-	PasswordField pwBox = new PasswordField();
-	this.add(pwBox, 1, 2);
-	
-	Button btn = new Button("Sign in");
-	HBox hbBtn = new HBox(10);
-	hbBtn.setAlignment(Pos.BOTTOM_LEFT);
-	hbBtn.getChildren().add(btn);
-	this.add(hbBtn, 1, 4);
-	
-	// user name/password invalid
-	final Text actiontarget = new Text();
-    this.add(actiontarget, 1, 6);
-	
-	// action for sign in button
-    btn.setOnAction(new EventHandler<ActionEvent>() {
-    	 
-        @Override
-        public void handle(ActionEvent e) {
-        	
-        	System.out.println("WORK");
-        	myName = userTextField.getText();
-        	myPass = pwBox.getText();
-        	
-        	// creates current user
-        	try {
-				myUser = DataBase.verifyUser(myName, myPass);
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-        	
-        	// checks if user is valid and if admin
-        	if(myUser == null) {
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Incorrect login information");
-        	}else{
-        		getChildren().clear();
-        		if(myUser.isAdmin()) {
-        			update(userTextField.getText(), true);
-        		}else {
-        			update(userTextField.getText(), false);
-        		}
-       		}
-        		
-        }
-    });
-    
-    Button reg = new Button("Register");
-	hbBtn.getChildren().add(reg);
-    
-	reg.setOnAction(new EventHandler<ActionEvent>() {
-   	 
-        @Override
-        public void handle(ActionEvent e) {
-        	getChildren().clear();
-        	register();
-        }
-	});
 }
 	/**
 	 * Opens account window for admin and user.
@@ -146,15 +70,15 @@ public class LoginPane extends GridPane {
     	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
     	
     	this.add(scenetitle, 1, 1, 1, 1);
+    	VBox hbBtn2 = new VBox();
+    	hbBtn2.setAlignment(Pos.BOTTOM_LEFT);
     	
     	if (admin) {
     		Button btn1 = new Button("Create Event");
-	    	Button btn2 = new Button("Edit events");
-	    	VBox hbBtn2 = new VBox();
-	    	hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
-	    	hbBtn2.getChildren().addAll(btn1, btn2);
-	    	this.add(hbBtn2, 1, 4);
+	    	Button btn = new Button("Delete events");
 	    	
+	    	hbBtn2.getChildren().addAll(btn1, btn);
+	
 	    	// action for create events
 	        btn1.setOnAction(new EventHandler<ActionEvent>() {
 	        	 
@@ -166,12 +90,12 @@ public class LoginPane extends GridPane {
 	        });
 	    	
 	    	// action for edit events
-	        btn2.setOnAction(new EventHandler<ActionEvent>() {
+	        btn.setOnAction(new EventHandler<ActionEvent>() {
 	        	 
 	            @Override
 	            public void handle(ActionEvent e) {
 	            	getChildren().clear();
-	            	
+	            	deleteEvents();
 	            }
 	        });
     	}
@@ -179,10 +103,7 @@ public class LoginPane extends GridPane {
     	else {
     		
     		Button btn2 = new Button("View your events");
-	    	HBox hbBtn2 = new HBox(10);
-	    	hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
 	    	hbBtn2.getChildren().add(btn2);
-	    	this.add(hbBtn2, 1, 4);
 	    	
 	    	// action for view your events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
@@ -190,11 +111,113 @@ public class LoginPane extends GridPane {
 	            @Override
 	            public void handle(ActionEvent e) {
 	            	getChildren().clear();
-	            	
+	            	viewEvents();
 	            }
 	        });
     	}
+    	Button sign = new Button("Sign Out");
+    	hbBtn2.getChildren().add(sign);
+    	this.add(hbBtn2, 1, 4);
+    	
+    	// action for view your events
+        sign.setOnAction(new EventHandler<ActionEvent>() {
+        	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	myName = null;
+            	myPass = null;
+            	myUser = null;
+            	login();
+            	
+            }
+        });
+    	
+    	
+    	
     }
+    
+    /**
+     * Creates log in window.
+     */
+    public void login() {
+    	Text scenetitle = new Text("LOGIN:");
+    	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
+    	this.add(scenetitle, 0, 0, 2, 1);
+    	
+    	// user name text field
+    	Label userName = new Label("User Name:");
+    	this.add(userName, 0, 1);
+
+    	TextField userTextField = new TextField();
+    	this.add(userTextField, 1, 1);
+
+    	// password text field
+    	Label pw = new Label("Password:");
+    	this.add(pw, 0, 2);
+
+    	PasswordField pwBox = new PasswordField();
+    	this.add(pwBox, 1, 2);
+    	
+    	Button btn = new Button("Sign in");
+    	HBox hbBtn = new HBox(10);
+    	hbBtn.setAlignment(Pos.BOTTOM_LEFT);
+    	hbBtn.getChildren().add(btn);
+    	this.add(hbBtn, 1, 4);
+    	
+    	// user name/password invalid
+    	final Text actiontarget = new Text();
+        this.add(actiontarget, 1, 6);
+    	
+    	// action for sign in button
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+        	 
+            @Override
+            public void handle(ActionEvent e) {
+            	
+            	myName = userTextField.getText();
+            	myPass = pwBox.getText();
+            	
+            	// creates current user
+            	try {
+    				myUser = DataBase.verifyUser(myName, myPass);
+    			} catch (FileNotFoundException e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			} catch (IOException e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			}
+            	
+            	// checks if user is valid and if admin
+            	if(myUser == null) {
+                    actiontarget.setFill(Color.FIREBRICK);
+                    actiontarget.setText("Incorrect login information");
+            	}else{
+            		getChildren().clear();
+            		if(myUser.isAdmin()) {
+            			update(userTextField.getText(), true);
+            		}else {
+            			update(userTextField.getText(), false);
+            		}
+           		}
+            		
+            }
+        });
+        
+        Button reg = new Button("Register");
+    	hbBtn.getChildren().add(reg);
+        
+    	reg.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	register();
+            }
+    	});
+    }
+    
     
     /**
      * Creates register window.
@@ -253,6 +276,10 @@ public class LoginPane extends GridPane {
             	}else if(newUser != null) {
             		actiontarget.setFill(Color.FIREBRICK);
             		actiontarget.setText("Invalid input");
+            	}else if(myName.indexOf(',') != -1 || 
+            			myPass.indexOf(',') != -1) {
+            		actiontarget.setFill(Color.FIREBRICK);
+            		actiontarget.setText("Input cannot contain commas.");
             	}else {
             		newUser = new NonAdmin(userTextField.getText(), 
 							passTextField.getText(), false);
@@ -316,7 +343,24 @@ public class LoginPane extends GridPane {
     	HBox hbSave = new HBox(10);
     	hbSave.setAlignment(Pos.BOTTOM_RIGHT);
     	hbSave.getChildren().add(save);
+    	
+    	Button back = new Button("Cancel");
+        hbSave.getChildren().add(back);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	update(myName, true);
+            }
+    	});
+    	
+    	
     	this.add(hbSave, 1, 5);
+    	
+    	final Text actiontarget = new Text();
+        this.add(actiontarget, 1, 6);
     	
     	// action for submit button
         save.setOnAction(new EventHandler<ActionEvent>() {
@@ -324,21 +368,132 @@ public class LoginPane extends GridPane {
             @Override
             public void handle(ActionEvent e) {
             	
-            	Date date1 = new Date(date.getValue().getMonthValue(), 
-            			date.getValue().getDayOfMonth(), date.getValue().getYear());
-            	Event event = new Event(eNameTF.getText(), loc.getText(),descTF.getText(),date1);
+            	if(eNameTF.getText().length() == 0 
+            			|| locTF.getText().length() == 0) {
+            		actiontarget.setFill(Color.FIREBRICK);
+            		actiontarget.setText("One or more spaces are left blank.");
+            	} else if(eNameTF.getText().indexOf(',') != -1 || 
+            			locTF.getText().indexOf(',') != -1 ||
+            			descTF.getText().indexOf(',') != -1) {
+            		actiontarget.setFill(Color.FIREBRICK);
+            		actiontarget.setText("Input cannot contain commas.");
+            	} else {
+	            	Date date1 = new Date(date.getValue().getMonthValue(), 
+	            			date.getValue().getDayOfMonth(), date.getValue().getYear());
+	            	Event event = new Event(eNameTF.getText(), locTF.getText(),descTF.getText(),date1);
             	
-            	try {
-					DataBase.saveEvent(event);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-            	
+	            	try {
+						DataBase.saveEvent(event);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	            	
+	            	getChildren().clear();
+	            	update(myName, true);
+            	}
+            }
+        });
+        
+        
+    }
+    
+    
+   
+    /**
+     * Opens window to view user events.
+     */
+    public void viewEvents() {
+    	VBox events = new VBox();
+    	events.setAlignment(Pos.BOTTOM_LEFT);
+    	
+        List<Event> eventList = null;
+        
+    	try {
+    		eventList = DataBase.getEvents();
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+        
+        for(Event event: eventList) {
+        	
+        	Label eventLabel = new Label(event.getTitle());
+        	eventLabel.setFont(new Font("Tahoma", 10));
+        	events.getChildren().add(eventLabel);
+
+        }
+        
+        Button back = new Button("Back");
+        events.getChildren().add(back);
+    	this.add(events, 0, 1);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	update(myName, false);
+            }
+    	});
+        
+        
+    }
+    
+    /**
+     * Can delete events.
+     */
+    public void deleteEvents() {
+    	VBox events = new VBox();
+    	events.setAlignment(Pos.BOTTOM_LEFT);
+    	
+        List<Event> eventList = null;
+        
+    	try {
+    		eventList = DataBase.getEvents();
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+        
+        for(Event event: eventList) {
+        	
+        	Button eventLabel = new Button(event.getTitle());
+        	eventLabel.setFont(new Font("Tahoma", 10));
+        	events.getChildren().add(eventLabel);
+        	eventLabel.setOnAction(new EventHandler<ActionEvent>() {
+              	 
+                @Override
+                public void handle(ActionEvent e) {
+                	
+                	try {
+						DataBase.deleteEvent(event.getTitle());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	getChildren().clear();
+                	deleteEvents();
+                }
+        	});
+        	
+
+        }
+        
+        Button back = new Button("Back");
+        events.getChildren().add(back);
+    	this.add(events, 0, 1);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
             	getChildren().clear();
             	update(myName, true);
             }
-        });
+    	});
+        
+        
     }
-   
+    
 }
