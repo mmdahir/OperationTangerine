@@ -48,22 +48,29 @@ private double minHeight = 500;
 	//this.setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
 }
 
-public VBox addScrollBox() {
+public Group addScrollBox() {
 	
-	//Group root = new Group();
+	Group root = new Group();
     final VBox vbox = new VBox();
     final ScrollBar scroll = new ScrollBar();
     final DropShadow shadow = new DropShadow();
     final Scene scene = new Scene(vbox, 180, 180);
-    //root.getChildren().addAll(scroll, vbox);
+    
+    root.getChildren().addAll(vbox);
 
-    //fillBox(vbox);
+    fillBox(vbox);
     //this.getChildren().add(scroll);
 
-    vbox.setAlignment(Pos.BASELINE_RIGHT);
+    vbox.setAlignment(Pos.TOP_LEFT);
     vbox.setMinHeight(400);
-    vbox.getChildren().add(scroll);
-    vbox.setStyle("-fx-background-color: #EB5A11;");
+    //vbox.getChildren().add(scroll);
+    //vbox.setStyle("-fx-background-color: #EB5A11;");
+	vbox.setStyle("-fx-padding: 10;" + 
+                  "-fx-border-style: solid inside;" + 
+                  "-fx-border-width: 2;" +
+                  "-fx-border-insets: 5;" + 
+                  "-fx-border-radius: 5;" + 
+                  "-fx-border-color: blue;");
     
     //LIGHT GREY #CCCCCC
     //LIGHT BLUE #B0C4DE
@@ -92,7 +99,7 @@ public VBox addScrollBox() {
 //            }
 //    });
 
-    return vbox;
+    return root;
 }
 
 public void fillBox(VBox box) {
@@ -109,7 +116,9 @@ public void fillBox(VBox box) {
     for(Event event: eventList) {
     	
     	Label eventLabel = new Label(event.getTitle());
+    	eventLabel.setFont(new Font("Tahoma", 20));
     	box.getChildren().add(eventLabel);
+    	//box.setBorder(arg0);
     }
 }
 }

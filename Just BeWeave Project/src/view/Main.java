@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 
 public class Main extends Application {
@@ -31,74 +32,23 @@ public class Main extends Application {
 		// login page
 		primaryStage.setTitle("BE-WEAVE");
 		BorderPane border = new BorderPane();
-		//GridPane grid = new GridPane();
 		LoginPane login = new LoginPane();
 		EventsPane events = new EventsPane();
-
-		//		//grid.setMinHeight(minHeight);
-//		grid.setAlignment(Pos.CENTER);
-//		grid.setHgap(10);
-//		//grid.setPadding(new Insets(25, 25, 25, 25));
-//		
-//		// homepage
-//		GridPane homePage = new GridPane();
-//		homePage.setMinHeight(minHeight);
-//		homePage.setAlignment(Pos.TOP_CENTER);
-//		homePage.setHgap(10);
-//		//homePage.setPadding(new Insets(25, 25, 25, 25));
-//		
-//		// log in text
-//		Text scenetitle = new Text("BE WE-ave");
-//		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-//		grid.add(scenetitle, 0, 0, 2, 1);
-//		
-//		// temporary homepage text
-//		Text scenetitle2 = new Text("Under Construction");
-//		scenetitle2.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-//		homePage.add(scenetitle2, 0, 0, 2, 1);
-//
-//		// user name text field
-//		Label userName = new Label("User Name:");
-//		grid.add(userName, 0, 1);
-//
-//		TextField userTextField = new TextField();
-//		grid.add(userTextField, 1, 1);
-//
-//		// password text field
-//		Label pw = new Label("Password:");
-//		grid.add(pw, 0, 2);
-//
-//		PasswordField pwBox = new PasswordField();
-//		grid.add(pwBox, 1, 2);
-//		
-//		Button btn = new Button("Sign in");
-//		HBox hbBtn = new HBox(10);
-//		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-//		hbBtn.getChildren().add(btn);
-//		grid.add(hbBtn, 1, 4);
-//		
-//		// action for sign in button
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//        	 
-//            @Override
-//            public void handle(ActionEvent e) {
-//            	
-//            	primaryStage.setMinHeight(minHeight);
-//            	primaryStage.setMinWidth(minWidth);
-//            	primaryStage.centerOnScreen();
-// 
-//                border.setCenter(events);
-//                border.setRight(login);
-//            }
-//        });
 		
-		//border.setCenter(login);
-        border.setCenter(events);
+		//border.setCenter(login);		
+		Label titleLabel = new Label("BE-WEAVE");
+		
+		titleLabel.setFont(new Font("Tahoma", 40));
+		titleLabel.setTextAlignment(TextAlignment.CENTER);
+		//titleLabel.setAlignment(Pos.CENTER);
+		
         border.setRight(login);
+        border.setCenter(events);
+		//border.setTop(titleLabel);
         //border.setPadding(new Insets(25, 25, 25, 25));
     	//border.setMargin(login, new Insets(25, 25, 25, 25));
         
-        Scene scene = new Scene(border, 1000, 500);
+        Scene scene = new Scene(border, minWidth, minHeight);
 		
     	//primaryStage.setMinHeight(minHeight);
     	//primaryStage.setMinWidth(minWidth);

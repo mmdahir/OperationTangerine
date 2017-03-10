@@ -54,11 +54,11 @@ public class LoginPane extends GridPane {
 
 	this.setAlignment(Pos.TOP_CENTER);
 	this.setHgap(10);
-	this.setPadding(new Insets(20, 0, 0, 0));
+	this.setPadding(new Insets(60, 0, 0, 0));
 	this.setMinSize(250, 500);
 	
-	Text scenetitle = new Text("Login");
-	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
+	Text scenetitle = new Text("LOGIN:");
+	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
 	this.add(scenetitle, 0, 0, 2, 1);
 	
 	// user name text field
