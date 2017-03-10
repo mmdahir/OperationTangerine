@@ -13,7 +13,7 @@ public class Date {
 	/*
 	 * 
 	 */
-	Date(int month, int date, int year) {
+	public Date(int month, int date, int year) {
 		myMonth = month;
 		myDate = date;
 		myYear = year;

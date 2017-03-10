@@ -39,7 +39,7 @@ import model.User;
 public class LoginPane extends GridPane {
 	
 	/** Data base used to access csv file. */
-	private DataBase myDataBase = new DataBase();
+	//private DataBase DataBase = new DataBase();
 	
 	/** Current User. */
 	private User myUser;
@@ -97,7 +97,7 @@ public class LoginPane extends GridPane {
         	
         	// creates current user
         	try {
-				myUser = myDataBase.verifyUser(myName, myPass);
+				myUser = DataBase.verifyUser(myName, myPass);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -239,7 +239,7 @@ public class LoginPane extends GridPane {
         		myPass = passTextField.getText();
         		User newUser = null;
 				try {
-					newUser = myDataBase.verifyUser(myName, myPass);
+					newUser = DataBase.verifyUser(myName, myPass);
 				} catch (FileNotFoundException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -259,7 +259,7 @@ public class LoginPane extends GridPane {
             		newUser = new NonAdmin(userTextField.getText(), 
 							passTextField.getText(), false);
             		try {
-    					myDataBase.saveUser(newUser);
+    					DataBase.saveUser(newUser);
     				} catch (IOException e1) {
     					// TODO Auto-generated catch block
     					e1.printStackTrace();
@@ -325,13 +325,21 @@ public class LoginPane extends GridPane {
         	 
             @Override
             public void handle(ActionEvent e) {
-            	Date date1 = new Date(12, 12, 12)
-            	Event event = new Event(eName.getText(), loc.getText(),descTF.getText(),date.getValue());
-            	myDataBase.saveEvent(event);
+            	
+            	Date date1 = new Date(12, 12, 12);
+            	Event event = new Event(eName.getText(), loc.getText(),descTF.getText(),date1);
+            	
+            	try {
+					DataBase.saveEvent(event);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	
             	getChildren().clear();
             	update(myName, true);
             }
         });
     }
-    
+   
 }
