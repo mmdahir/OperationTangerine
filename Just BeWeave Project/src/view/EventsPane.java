@@ -116,7 +116,7 @@ public void fillBox(VBox box) {
     for(Event event: eventList) {
     	
     	Label eventLabel = new Label(event.getTitle());
-    	eventLabel.setFont(new Font("Tahoma", 20));
+    	eventLabel.setFont(new Font("Arial Bold", 20));
     	box.getChildren().add(eventLabel);
     	//box.setBorder(arg0);
     }

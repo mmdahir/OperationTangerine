@@ -37,9 +37,9 @@ import model.User;
  * @author John
  *
  */
+
 public class LoginPane extends GridPane {
-	
-	
+		
 	/** Current User. */
 	private User myUser;
 	
@@ -55,8 +55,8 @@ public class LoginPane extends GridPane {
 	this.setHgap(10);
 	this.setPadding(new Insets(60, 0, 0, 0));
 	this.setMinSize(250, 500);
-	login();
 	
+	login();
 }
 	/**
 	 * Opens account window for admin and user.
@@ -71,9 +71,12 @@ public class LoginPane extends GridPane {
     	
     	this.add(scenetitle, 1, 1, 1, 1);
     	VBox hbBtn2 = new VBox();
+    	
     	hbBtn2.setAlignment(Pos.BOTTOM_LEFT);
+    	hbBtn2.setSpacing(5);
     	
     	if (admin) {
+    		
     		Button btn1 = new Button("Create Event");
 	    	Button btn = new Button("Delete events");
 	    	
@@ -115,6 +118,7 @@ public class LoginPane extends GridPane {
 	            }
 	        });
     	}
+    	
     	Button sign = new Button("Sign Out");
     	hbBtn2.getChildren().add(sign);
     	this.add(hbBtn2, 1, 4);
@@ -124,23 +128,21 @@ public class LoginPane extends GridPane {
         	 
             @Override
             public void handle(ActionEvent e) {
+            	
             	getChildren().clear();
             	myName = null;
             	myPass = null;
             	myUser = null;
             	login();
-            	
             }
         });
-    	
-    	
-    	
     }
     
     /**
      * Creates log in window.
      */
     public void login() {
+    	
     	Text scenetitle = new Text("LOGIN:");
     	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
     	this.add(scenetitle, 0, 0, 2, 1);
@@ -200,8 +202,7 @@ public class LoginPane extends GridPane {
             		}else {
             			update(userTextField.getText(), false);
             		}
-           		}
-            		
+           		}	
             }
         });
         
@@ -217,12 +218,12 @@ public class LoginPane extends GridPane {
             }
     	});
     }
-    
-    
+     
     /**
      * Creates register window.
      */
     public void register() {
+    	
     	Text scenetitle = new Text("Register");
     	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
     	this.add(scenetitle, 0, 0, 2, 1);
@@ -262,8 +263,6 @@ public class LoginPane extends GridPane {
     	});
     	
     	this.add(hbSave, 1, 4);
-    	
-    	
     	
     	// action for submit button
         save.setOnAction(new EventHandler<ActionEvent>() {
@@ -309,7 +308,6 @@ public class LoginPane extends GridPane {
             	}  
             }
         });
-    	
     }
     
     /**
@@ -409,8 +407,6 @@ public class LoginPane extends GridPane {
             	}
             }
         });
-        
-        
     }
     
     
@@ -419,7 +415,9 @@ public class LoginPane extends GridPane {
      * Opens window to view user events.
      */
     public void viewEvents() {
+    	
     	VBox events = new VBox();
+    	
     	events.setAlignment(Pos.BOTTOM_LEFT);
     	
         List<Event> eventList = null;
@@ -434,14 +432,16 @@ public class LoginPane extends GridPane {
         for(Event event: eventList) {
         	
         	Label eventLabel = new Label(event.getTitle());
-        	eventLabel.setFont(new Font("Tahoma", 10));
+        	eventLabel.setFont(new Font("Arial Bold", 12));
         	events.getChildren().add(eventLabel);
-
         }
         
         Button back = new Button("Back");
+        
+        events.setSpacing(20);
         events.getChildren().add(back);
-    	this.add(events, 0, 1);
+    	
+        this.add(events, 0, 1);
         
     	back.setOnAction(new EventHandler<ActionEvent>() {
        	 
@@ -450,9 +450,7 @@ public class LoginPane extends GridPane {
             	getChildren().clear();
             	update(myName, false);
             }
-    	});
-        
-        
+    	});      
     }
     
     /**
@@ -491,8 +489,6 @@ public class LoginPane extends GridPane {
                 	deleteEvents();
                 }
         	});
-        	
-
         }
         
         Button back = new Button("Back");
@@ -506,9 +502,6 @@ public class LoginPane extends GridPane {
             	getChildren().clear();
             	update(myName, true);
             }
-    	});
-        
-        
+    	}); 
     }
-    
 }
