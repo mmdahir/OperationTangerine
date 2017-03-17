@@ -42,7 +42,7 @@ public class Event {
 		myTitle = theTitle;
 		myLocation = "";
 		myDescription = "";
-		myDate = new Date(0,0,0);
+		myDate = null;
 		myUsers = new ArrayList<User>();
 	}
 	
