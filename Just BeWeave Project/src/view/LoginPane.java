@@ -440,14 +440,7 @@ public class LoginPane extends GridPane {
     	
     	events.setAlignment(Pos.BOTTOM_LEFT);
     	
-        List<Event> eventList = null;
-        
-    	try {
-    		eventList = DataBase.getEvents();
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+        List<Event> eventList = ((NonAdmin) myUser).getEvents();
         
         for(Event event: eventList) {
         	
@@ -524,4 +517,58 @@ public class LoginPane extends GridPane {
             }
     	}); 
     }
+    
+    /**
+     * Can delete user events.
+     */
+    public void deleteUserEvents() {
+    	VBox events = new VBox();
+    	events.setAlignment(Pos.BOTTOM_LEFT);
+    	
+        List<Event> eventList = ((NonAdmin) myUser).getEvents();
+        
+        for(Event event: eventList) {
+        	
+        	Button eventLabel = new Button(event.getTitle());
+        	eventLabel.setFont(new Font("Tahoma", 10));
+        	events.getChildren().add(eventLabel);
+        	eventLabel.setOnAction(new EventHandler<ActionEvent>() {
+              	 
+                @Override
+                public void handle(ActionEvent e) {
+                	
+                	try {
+						DataBase.deleteEvent(event.getTitle());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                	getChildren().clear();
+                	deleteEvents();
+                }
+        	});
+        }
+        
+        Button back = new Button("Back");
+        events.getChildren().add(back);
+    	this.add(events, 0, 1);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	update(myName, true);
+            }
+    	}); 
+    }
+    
+    /**
+     * Returns current user.
+     * @return the user that is logged in
+     */
+    public User getCurrUser() {
+    	return myUser;
+    }
+    
 }
