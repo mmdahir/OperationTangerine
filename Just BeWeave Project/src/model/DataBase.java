@@ -241,6 +241,16 @@ public class DataBase {
 		
 	}
 	
+	/**
+	 * Deletes an Event from the CSV file.
+	 * @param theEvent: the event's name to be deleted.
+	 * @throws IOException 
+	 */
+	public static void deleteEvent(Event theEvent) throws IOException {
+		deleteEvent(theEvent.getTitle());
+	}
+	
+	
 	public static void main (String[] args) throws IOException {
 		deleteEvent("Event1");
 	}
