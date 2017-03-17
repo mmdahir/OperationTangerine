@@ -358,6 +358,7 @@ public class LoginPane extends GridPane {
 
     	TextArea descTF = new TextArea();
     	this.add(descTF, 1, 3);
+    	
     	descTF.setPrefSize(150, 200);
     	descTF.setPrefRowCount(10);
     	descTF.setWrapText(true);
