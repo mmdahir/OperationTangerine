@@ -480,11 +480,11 @@ public class LoginPane extends GridPane {
     	
     	events.setAlignment(Pos.BOTTOM_LEFT);
     	
-        List<Event> eventList = ((NonAdmin) myUser).getEvents();
+        List<String> eventList = ((NonAdmin) myUser).getEvents();
         
-        for(Event event: eventList) {
+        for(String event: eventList) {
         	
-        	Label eventLabel = new Label(event.getTitle());
+        	Label eventLabel = new Label(event);
         	eventLabel.setFont(new Font("Arial Bold", 12));
         	events.getChildren().add(eventLabel);
         }
@@ -566,11 +566,11 @@ public class LoginPane extends GridPane {
     	VBox events = new VBox();
     	events.setAlignment(Pos.BOTTOM_LEFT);
     	
-        List<Event> eventList = ((NonAdmin) myUser).getEvents();
+        List<String> eventList = ((NonAdmin) myUser).getEvents();
         
-        for(Event event: eventList) {
+        for(String event: eventList) {
         	
-        	Button eventLabel = new Button(event.getTitle());
+        	Button eventLabel = new Button(event);
         	eventLabel.setFont(new Font("Tahoma", 10));
         	events.getChildren().add(eventLabel);
         	eventLabel.setOnAction(new EventHandler<ActionEvent>() {
@@ -578,7 +578,7 @@ public class LoginPane extends GridPane {
                 @Override
                 public void handle(ActionEvent e) {
                 	
-                	((NonAdmin) myUser).deleteEvent(event.getTitle());
+                	((NonAdmin) myUser).deleteEvent(event);
                 	getChildren().clear();
                 	deleteUserEvents();
                 }
