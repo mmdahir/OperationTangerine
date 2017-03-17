@@ -498,6 +498,7 @@ public class LoginPane extends GridPane {
         for(Event event: eventList) {
         	
         	Button eventLabel = new Button(event.getTitle());
+        	
         	eventLabel.setFont(new Font("Tahoma", 10));
         	events.getChildren().add(eventLabel);
         	eventLabel.setOnAction(new EventHandler<ActionEvent>() {

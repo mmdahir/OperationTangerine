@@ -66,7 +66,7 @@ public ScrollPane addScrollBox() {
     scrollPane.setContent(vbox);
     scrollPane.setMinSize(715, 400);
     scrollPane.setStyle("-fx-background-insets:3;" +
-    		            " -fx-background: white;");
+    		            "-fx-background: white;");
     
     vbox.setLayoutX(5);
     vbox.setSpacing(10);
