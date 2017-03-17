@@ -51,11 +51,13 @@ public class LoginPane extends GridPane {
 	
 	{
 
-	this.setAlignment(Pos.TOP_CENTER);
+
+	this.setVgap(5);
 	this.setHgap(10);
-	this.setPadding(new Insets(60, 0, 0, 0));
 	this.setMinSize(250, 500);
-	
+	this.setAlignment(Pos.TOP_CENTER);
+	this.setPadding(new Insets(60, 0, 0, 0));
+
 	login();
 }
 	/**
@@ -224,7 +226,7 @@ public class LoginPane extends GridPane {
      */
     public void register() {
     	
-    	Text scenetitle = new Text("Register");
+    	Text scenetitle = new Text("REGISTER:");
     	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
     	this.add(scenetitle, 0, 0, 2, 1);
     	
@@ -247,7 +249,7 @@ public class LoginPane extends GridPane {
     	
     	Button save = new Button("Submit");
     	HBox hbSave = new HBox(10);
-    	hbSave.setAlignment(Pos.BOTTOM_RIGHT);
+    	hbSave.setAlignment(Pos.BOTTOM_LEFT);
     	hbSave.getChildren().add(save);
     	
     	Button back = new Button("Cancel");

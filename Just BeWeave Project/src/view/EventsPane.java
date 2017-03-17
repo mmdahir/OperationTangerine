@@ -1,20 +1,12 @@
 package view;
 
-import java.awt.ScrollPane;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import javax.swing.event.ChangeListener;
-
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -34,42 +26,39 @@ private double minHeight = 500;
 	Label title = new Label("Upcoming Events");
 	
 	title.setFont(new Font("Cooper Black", 30));
-//	title.setTextFill(Color.GREY);
-//	title.setBackground(new Background(new BackgroundFill(Color.ORANGERED, 
-//			                           new CornerRadii(10), 
-//			                           new Insets(0, -235, 0, -235))));
-	
-	System.out.println(title.getFont().getName());
+	//title.setTextFill(Color.BLACK);
 	
 	this.setAlignment(Pos.TOP_CENTER);
 	this.setMinSize(minWidth, minHeight);
 	this.setPadding(new Insets(25, 25, 25, 25));
 	this.getChildren().addAll(title, addScrollBox());
-	//this.setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
 }
 
-public Group addScrollBox() {
+public ScrollPane addScrollBox() {
 	
-	Group root = new Group();
     final VBox vbox = new VBox();
-    final ScrollBar scroll = new ScrollBar();
     final DropShadow shadow = new DropShadow();
-    final Scene scene = new Scene(vbox, 180, 180);
+    final ScrollPane scrollPane = new ScrollPane();
     
-    root.getChildren().addAll(vbox);
+    scrollPane.setContent(vbox);
+    scrollPane.setMinSize(715, 400);
+    scrollPane.setStyle("-fx-background-insets:3;");
 
     fillBox(vbox);
-    //this.getChildren().add(scroll);
 
+    shadow.setColor(Color.BLUE);
+    shadow.setOffsetX(10);
+    shadow.setOffsetY(8);
+    
+    vbox.setLayoutX(5);
+    vbox.setSpacing(10);
+    vbox.setMinWidth(700);
+    vbox.setMinHeight(1000);
     vbox.setAlignment(Pos.TOP_LEFT);
-    vbox.setMinHeight(400);
-    //vbox.getChildren().add(scroll);
-    //vbox.setStyle("-fx-background-color: #EB5A11;");
 	vbox.setStyle("-fx-padding: 10;" + 
-                  "-fx-border-style: solid inside;" + 
-                  "-fx-border-width: 2;" +
+                  "-fx-border-width: 3;" +
                   "-fx-border-insets: 5;" + 
-                  "-fx-border-radius: 5;" + 
+                  "-fx-border-radius: 20;" + 
                   "-fx-border-color: blue;");
     
     //LIGHT GREY #CCCCCC
@@ -77,29 +66,7 @@ public Group addScrollBox() {
     //DARK BLUE #003366
     //ORANGE #EB5A11
 
-    shadow.setColor(Color.ORANGERED);
-    shadow.setOffsetX(2);
-    shadow.setOffsetY(2);
-
-    vbox.setLayoutX(5);
-    vbox.setSpacing(10);
-    vbox.setMinWidth(700);
-
-    scroll.setLayoutX(this.getWidth()-scroll.getWidth());
-    scroll.setOrientation(Orientation.VERTICAL);
-    scroll.setPrefHeight(425);
-    scroll.setEffect(shadow);
-    scroll.setMax(500);
-    scroll.setMin(0);
-    
-//    scroll.valueProperty().addListener(new ChangeListener<Number>() {
-//        public void changed(ObservableValue<? extends Number> ov,
-//            Number old_val, Number new_val) {
-//                vbox.setLayoutY(-new_val.doubleValue());
-//            }
-//    });
-
-    return root;
+    return scrollPane;
 }
 
 public void fillBox(VBox box) {
@@ -117,6 +84,7 @@ public void fillBox(VBox box) {
     	
     	Label eventLabel = new Label(event.getTitle());
     	eventLabel.setFont(new Font("Arial Bold", 20));
+    	//eventLabel.setTextFill(Color.BLACK);
     	box.getChildren().add(eventLabel);
     	//box.setBorder(arg0);
     }
