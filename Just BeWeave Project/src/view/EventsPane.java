@@ -131,7 +131,6 @@ public class EventsPane extends VBox {
 	
 	public void displayEvent(Event event) {
 		
-	//    final Button back = new Button("Back");
 		final Label eventTitle = new Label(event.getTitle());
 		final Label eventDate = new Label(event.getDate().toString());
 		final Label eventDescript = new Label(event.getDescription());
@@ -144,14 +143,6 @@ public class EventsPane extends VBox {
 		
 		eventDescript.setTextFill(textColor);
 		eventDescript.setFont(new Font("Arial Bold", 20));
-	    
-	//	back.setOnAction(new EventHandler<ActionEvent>() {
-	//   	 
-	//        @Override
-	//        public void handle(ActionEvent e) {
-	//        	setup();
-	//        }
-	//	});    
 		
 	    this.setSpacing(10);
 		this.getChildren().clear();
@@ -198,4 +189,5 @@ public class EventsPane extends VBox {
 		
 		return box;
 	}
+	
 }

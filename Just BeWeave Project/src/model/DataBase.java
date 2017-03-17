@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 // NOTE THAT THE Events CSV WILL BE FORMATTED AS: TITLE, LOCATION, DESCRIPTION, MONTH, DATE, YEAR, USR1, USR2, etc
 //public Event(String theTitle, String theLocation, String theDescription, Date theDate)
@@ -177,6 +178,7 @@ public class DataBase {
 	 */
 	public static User verifyUser(String userName, String password) 
 			throws FileNotFoundException, IOException {
+		
 		User u = getUser(userName);
 		
 		if(u == null) return null;

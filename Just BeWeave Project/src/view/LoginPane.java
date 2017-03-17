@@ -8,6 +8,11 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectPropertyBase;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -60,8 +65,10 @@ public class LoginPane extends GridPane {
 	/** Color of the background on this pane. */
 	private Paint backgroundColor = Color.WHITE;
 	
+	/** Property used to signal EventPane when a User has logged in. */
+	public StringProperty myUserProp = new SimpleStringProperty("null");
+	
 	{
-
 
 	this.setVgap(5);
 	this.setHgap(10);
@@ -236,6 +243,7 @@ public class LoginPane extends GridPane {
                     actiontarget.setText("Incorrect login information");
             	}else{
             		getChildren().clear();
+    				myUserProp.set(myUser.getUserName());
             		if(myUser.isAdmin()) {
             			update(userTextField.getText(), true);
             		}else {
@@ -594,7 +602,7 @@ public class LoginPane extends GridPane {
      * Returns current user.
      * @return the user that is logged in
      */
-    public User getCurrUser() {
+	public User getCurrUser() {
     	return myUser;
     }
     
