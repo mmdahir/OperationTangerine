@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -49,7 +51,7 @@ public class LoginPane extends GridPane {
 	/** Current User name. */
 	private String myName;
 	
-	/** Current User passowrd. */
+	/** Current User password. */
 	private String myPass;
 
 	/** Color of the Text in this Pane. */
