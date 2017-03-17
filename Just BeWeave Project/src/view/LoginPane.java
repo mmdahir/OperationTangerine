@@ -121,14 +121,14 @@ public class LoginPane extends GridPane {
     		
     		Button btn2 = new Button("View your events");
     		Button btn3 = new Button("Remove event");
-    		Button btn1 = new Button("Register for events");
+    		//Button btn1 = new Button("Register for events");
     		
             btn2.setMinWidth(110);
             btn3.setMinWidth(110);
     		
-	    	hbBtn2.getChildren().addAll(btn1, btn2, btn3);
+	    	hbBtn2.getChildren().addAll( btn2, btn3);
 	    	
-	    	// action for adding events
+	    	/* action for adding events
 	        btn1.setOnAction(new EventHandler<ActionEvent>() {
 	        	 
 	            @Override
@@ -136,7 +136,7 @@ public class LoginPane extends GridPane {
 	            	getChildren().clear();
 	            	regEvents();
 	            }
-	        });
+	        });*/
 	    	
 	    	// action for view your events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
