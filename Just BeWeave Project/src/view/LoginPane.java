@@ -119,6 +119,10 @@ public class LoginPane extends GridPane {
     		
     		Button btn2 = new Button("View your events");
     		Button btn3 = new Button("Remove event");
+    		
+            btn2.setMinWidth(110);
+            btn3.setMinWidth(110);
+    		
 	    	hbBtn2.getChildren().addAll(btn2, btn3);
 	    	
 	    	// action for view your events
@@ -144,6 +148,9 @@ public class LoginPane extends GridPane {
     	}
     	
     	Button sign = new Button("Sign Out");
+    	
+        sign.setMinWidth(110);
+    	
     	hbBtn2.getChildren().add(sign);
     	this.add(hbBtn2, 1, 4);
     	
@@ -191,9 +198,10 @@ public class LoginPane extends GridPane {
     	this.add(pwBox, 1, 2);
     	
     	Button btn = new Button("Sign in");
+    	
     	HBox hbBtn = new HBox(10);
     	hbBtn.setAlignment(Pos.BOTTOM_LEFT);
-    	hbBtn.getChildren().add(btn);
+    	//hbBtn.getChildren().add(btn);
     	this.add(hbBtn, 1, 4);
     	
     	// user name/password invalid
@@ -236,7 +244,11 @@ public class LoginPane extends GridPane {
         });
         
         Button reg = new Button("Register");
-    	hbBtn.getChildren().add(reg);
+        
+        reg.setMinWidth(70);
+        btn.setMinWidth(70);
+        
+    	hbBtn.getChildren().addAll(btn, reg);
         
     	reg.setOnAction(new EventHandler<ActionEvent>() {
        	 
@@ -277,13 +289,17 @@ public class LoginPane extends GridPane {
     	final Text actiontarget = new Text();
         this.add(actiontarget, 1, 6);
     	
-    	Button save = new Button("Submit");
     	HBox hbSave = new HBox(10);
     	hbSave.setAlignment(Pos.BOTTOM_LEFT);
-    	hbSave.getChildren().add(save);
-    	
+    	//hbSave.getChildren().add(save);
+ 
+    	Button save = new Button("Submit");
     	Button back = new Button("Cancel");
-        hbSave.getChildren().add(back);
+    	
+        save.setMinWidth(70);
+        back.setMinWidth(70);
+        
+    	hbSave.getChildren().addAll(save, back);
         
     	back.setOnAction(new EventHandler<ActionEvent>() {
        	 
@@ -464,7 +480,7 @@ public class LoginPane extends GridPane {
         
         Button back = new Button("Back");
         
-        events.setSpacing(20);
+        events.setSpacing(15);
         events.getChildren().add(back);
     	
         this.add(events, 0, 1);
