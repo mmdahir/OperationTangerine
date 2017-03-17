@@ -32,6 +32,11 @@ public class NonAdmin extends AbstractUser {
 //	}
 	
 	public void addEvent(String theEventTitle) {
+		for (int i = 0; i < myEvents.size(); i++) {
+			if (myEvents.get(i).equals(theEventTitle)) {
+				return;
+			} 
+		}
 		myEvents.add(theEventTitle);
 	}
 	
