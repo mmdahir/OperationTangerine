@@ -1,7 +1,7 @@
 package model;
 
 public abstract class AbstractUser implements User {
-	
+//	
 	private String myUserName;
 	
 	private String myPassword;

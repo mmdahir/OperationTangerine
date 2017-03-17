@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NonAdmin extends AbstractUser {
-
+//
 	private List<String> myEvents;
 	
 	public NonAdmin(String theUserName, String thePassword, boolean theAdmin) {
