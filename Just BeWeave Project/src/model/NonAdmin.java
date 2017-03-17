@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NonAdmin extends AbstractUser {
 
-	List<String> myEvents;
+	private List<String> myEvents;
 	
 	public NonAdmin(String theUserName, String thePassword, boolean theAdmin) {
 		super(theUserName, thePassword, theAdmin);
@@ -27,30 +27,25 @@ public class NonAdmin extends AbstractUser {
 		return events;
 	}
 	
-	public void addEvent(String myEventTitle) {
-		myEvents.add(myEventTitle);
+	public void addEvent(String theEventTitle) {
+		myEvents.add(theEventTitle);
 	}
 	
-	public void addEvent(Event myEvent) {
-		myEvents.add(myEvent.myTitle);
+	public void addEvent(Event theEvent) {
+		addEvent(theEvent.getTitle());
 	}
 
-	public void deleteEvent(String myEventTitle) {
+	public void deleteEvent(String theEventTitle) {
 		for (int i = 0; i < myEvents.size(); i++) {
-			if (myEvents.get(i).equals(myEventTitle)) {
+			if (myEvents.get(i).equals(theEventTitle)) {
 				myEvents.remove(i);
 				break;
 			}	
 		}
 	}
 	
-	public void deleteEvent(Event myEvent) {
-		for (int i = 0; i < myEvents.size(); i++) {
-			if (myEvents.get(i).equals(myEvent.myTitle)) {
-				myEvents.remove(i);
-				break;
-			}	
-		}
+	public void deleteEvent(Event theEvent) {
+		deleteEvent(theEvent.getTitle());
 	}
 	
 	@Override

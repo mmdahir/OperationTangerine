@@ -210,6 +210,11 @@ public class DataBase {
 		
 		if(arr[2].toLowerCase().contains("f")) {
 			u = new NonAdmin(arr[0], arr[1], false);
+			if (arr.length > 3) {
+				for (int i = 3; i < arr.length; i++) {
+					((NonAdmin)u).addEvent(arr[i]);
+				}
+			}
 		} else {
 			u = new Admin(arr[0], arr[1], true);
 		}
@@ -225,34 +230,34 @@ public class DataBase {
 	public static void deleteEvent(String theEvent) throws IOException {
 		
 		File file = new File(myEventCSV);
-		FileWriter fileW = new FileWriter(file, true);
-        BufferedWriter out = new BufferedWriter(fileW);
+		File newFile = new File("src/model/tempEvent.csv");
+        BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
+        BufferedWriter out2 = new BufferedWriter(new FileWriter(newFile, true));
         BufferedReader br = new BufferedReader(new FileReader(file));
         
         String line;
         while ((line = br.readLine()) != null) {
-           if(line.contains(theEvent)) {
-               out.write("");
+            if(!line.contains(theEvent)) {
+               out2.write(line);
+               out2.newLine();
            }
         }
+        
+        file.delete();
+        newFile.renameTo(new File(myEventCSV));
+        
         br.close();
-
         out.close();
-		
+		out2.close();
 	}
 	
 	/**
 	 * Deletes an Event from the CSV file.
-	 * @param theEvent: the event's name to be deleted.
+	 * @param theEvent: the event object to be deleted.
 	 * @throws IOException 
 	 */
 	public static void deleteEvent(Event theEvent) throws IOException {
 		deleteEvent(theEvent.getTitle());
-	}
-	
-	
-	public static void main (String[] args) throws IOException {
-		deleteEvent("Event1");
 	}
 	
 	/**
@@ -272,6 +277,16 @@ public class DataBase {
 	}
 	
 	/**
+	 * Overwrites an Event in the CSV.
+	 * @param theEvent: The Event object to be overwritten.
+	 * @throws IOException
+	 */
+	public static void overwriteEvent(Event theEvent) throws IOException {
+		deleteEvent(theEvent.getTitle());
+		saveEvent(theEvent);
+	}
+	
+	/**
 	 * Appends the User to the CSV.
 	 * @param theUser: The user object to be saved.
 	 * @throws IOException
@@ -281,13 +296,17 @@ public class DataBase {
 		FileWriter usrFile = new FileWriter(new File(myUserCSV), true);
 		BufferedWriter brFile = new BufferedWriter(usrFile);
 		
-		brFile.append(theUser.getUserName() + ",");
-		brFile.append(theUser.getPassword() + ",");
+//		brFile.append(theUser.getUserName() + ",");
+//		brFile.append(theUser.getPassword() + ",");
 		
 		if (theUser.isAdmin()) {
-			brFile.append("TRUE");
+//			brFile.append("TRUE");
+			Admin newUser = (Admin)theUser;
+			brFile.append(newUser.toString());
 		} else {
-			brFile.append("FALSE");
+//			brFile.append("FALSE");
+			NonAdmin newUser = (NonAdmin)theUser;
+			brFile.append(newUser.toString());
 		}
 		
 		brFile.newLine();
@@ -295,9 +314,55 @@ public class DataBase {
 		brFile.close();
 		usrFile.close();
 	}
+	
+	/**
+	 * Deletes a user from the CSV file.
+	 * @param theUser: the user's name to be deleted.
+	 * @throws IOException 
+	 */
+	public static void deleteUser(String theUserName) throws IOException {
 		
+		File file = new File(myUserCSV);
+		File newFile = new File("src/model/tempUser.csv");
+        BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
+        BufferedWriter out2 = new BufferedWriter(new FileWriter(newFile, true));
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        
+        String line;
+        while ((line = br.readLine()) != null) {
+            if(!line.contains(theUserName)) {
+               out2.write(line);
+               out2.newLine();
+           }
+        }
+        
+        file.delete();
+        newFile.renameTo(new File(myUserCSV));
+        
+        br.close();
+        out.close();
+		out2.close();
+	}
+	
+	/**
+	 * Deletes a user from the CSV file.
+	 * @param theUser: the user object to be deleted.
+	 * @throws IOException 
+	 */
+	public static void deleteUser(User theUser) throws IOException {
+		deleteUser(theUser.getUserName());
+	}
+	
+	/**
+	 * Overwrite's a user inside the CSV file.
+	 * @param theUser: the user object to be overwritten.
+	 * @throws IOException 
+	 */
+	public static void overwriteUser(User theUser) throws IOException {
+		deleteUser(theUser);
+		saveUser(theUser);
+	}
 }
-
 
 /*
 		public static void main(String[] args) throws FileNotFoundException, IOException {

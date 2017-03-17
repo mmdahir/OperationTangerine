@@ -43,6 +43,6 @@ public class Date {
 	}
 
 	public String toString() {
-		return myMonth + "," + myDate + "," + myYear;
+		return myMonth + "," + myDate + "," + myYear + ",";
 	}
 }

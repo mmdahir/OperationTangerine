@@ -13,27 +13,27 @@ public class Event {
 	/**
 	 * This is the title of event.
 	 */
-	String myTitle;
+	private String myTitle;
 	
 	/**
 	 * This is the location of event.
 	 */
-	String myLocation;
+	private String myLocation;
 	
 	/**
 	 * A brief description of event.
 	 */
-	String myDescription;
+	private String myDescription;
 	
 	/**
 	 * The date when event will take place.
 	 */
-	Date myDate;
+	private Date myDate;
 	
 	/**
 	 * List of users participating in event.
 	 */
-	List <User> myUsers;
+	private List <User> myUsers;
 	
 	/**
 	 *
@@ -173,7 +173,7 @@ public class Event {
 		b.append(myDate + ",");
 		
 		for (User u : myUsers) 
-			b.append(u + ",");
+			b.append(u.getUserName() + ",");
 		
 		return b.toString();
 	}
