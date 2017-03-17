@@ -117,7 +117,9 @@ public class Event {
 	 * 
 	 */
 	public void addUser(User theUser) {
-		myUsers.add(theUser);
+		if (!myUsers.contains(theUser)) {
+			myUsers.add(theUser);
+		}
 	}
 	
 	/**
