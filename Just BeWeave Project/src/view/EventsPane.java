@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
@@ -13,6 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import model.DataBase;
 import model.Event;
@@ -20,18 +22,26 @@ import model.Event;
 public class EventsPane extends VBox { 
 	
 private double minWidth = 750;
+
 private double minHeight = 500;
+
+/** Color of the Text in this Pane. */
+private Paint textColor = Color.BLACK;
+
+/** Color of the background on this pane. */
+private Paint backgroundColor = Color.WHITE;
 
 {
 	Label title = new Label("Upcoming Events");
 	
+	title.setTextFill(textColor);
 	title.setFont(new Font("Cooper Black", 30));
-	//title.setTextFill(Color.BLACK);
 	
 	this.setAlignment(Pos.TOP_CENTER);
 	this.setMinSize(minWidth, minHeight);
 	this.setPadding(new Insets(25, 25, 25, 25));
 	this.getChildren().addAll(title, addScrollBox());
+	this.setBackground(new Background(new BackgroundFill(backgroundColor, null, null)));
 }
 
 public ScrollPane addScrollBox() {
@@ -42,13 +52,13 @@ public ScrollPane addScrollBox() {
     
     scrollPane.setContent(vbox);
     scrollPane.setMinSize(715, 400);
-    scrollPane.setStyle("-fx-background-insets:3;");
+    scrollPane.setStyle("-fx-background-insets:3; -fx-background: white;");
 
     fillBox(vbox);
 
-    shadow.setColor(Color.BLUE);
-    shadow.setOffsetX(10);
     shadow.setOffsetY(8);
+    shadow.setOffsetX(10);
+    shadow.setColor(Color.BLUE);
     
     vbox.setLayoutX(5);
     vbox.setSpacing(10);
@@ -82,11 +92,15 @@ public void fillBox(VBox box) {
     
     for(Event event: eventList) {
     	
-    	Label eventLabel = new Label(event.getTitle());
+    	Hyperlink eventLabel = new Hyperlink(event.getTitle());
+    	
+    	eventLabel.setTextFill(textColor);
+    	eventLabel.onMouseClickedProperty();
     	eventLabel.setFont(new Font("Arial Bold", 20));
-    	//eventLabel.setTextFill(Color.BLACK);
+        
+    	//eventLabel.setOnAction();
+    	
     	box.getChildren().add(eventLabel);
-    	//box.setBorder(arg0);
     }
 }
 }

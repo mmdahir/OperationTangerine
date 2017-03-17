@@ -16,10 +16,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text; 
@@ -48,6 +51,12 @@ public class LoginPane extends GridPane {
 	
 	/** Current User passowrd. */
 	private String myPass;
+
+	/** Color of the Text in this Pane. */
+	private Paint textColor = Color.BLACK;
+
+	/** Color of the background on this pane. */
+	private Paint backgroundColor = Color.WHITE;
 	
 	{
 
@@ -57,6 +66,7 @@ public class LoginPane extends GridPane {
 	this.setMinSize(250, 500);
 	this.setAlignment(Pos.TOP_CENTER);
 	this.setPadding(new Insets(60, 0, 0, 0));
+	this.setBackground(new Background(new BackgroundFill(backgroundColor ,null, null)));
 
 	login();
 }
@@ -132,9 +142,11 @@ public class LoginPane extends GridPane {
             public void handle(ActionEvent e) {
             	
             	getChildren().clear();
+            	
             	myName = null;
             	myPass = null;
             	myUser = null;
+            	
             	login();
             }
         });
@@ -146,11 +158,13 @@ public class LoginPane extends GridPane {
     public void login() {
     	
     	Text scenetitle = new Text("LOGIN:");
+    	scenetitle.setFill(textColor);
     	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
     	this.add(scenetitle, 0, 0, 2, 1);
     	
     	// user name text field
     	Label userName = new Label("User Name:");
+    	userName.setTextFill(textColor);
     	this.add(userName, 0, 1);
 
     	TextField userTextField = new TextField();
@@ -158,6 +172,7 @@ public class LoginPane extends GridPane {
 
     	// password text field
     	Label pw = new Label("Password:");
+    	pw.setTextFill(textColor);
     	this.add(pw, 0, 2);
 
     	PasswordField pwBox = new PasswordField();
@@ -227,11 +242,13 @@ public class LoginPane extends GridPane {
     public void register() {
     	
     	Text scenetitle = new Text("REGISTER:");
+    	scenetitle.setFill(textColor);
     	scenetitle.setFont(Font.font("Cooper Black", FontWeight.NORMAL, 20));
     	this.add(scenetitle, 0, 0, 2, 1);
     	
     	// user name text field
     	Label userName = new Label("User Name:");
+    	userName.setTextFill(textColor);
     	this.add(userName, 0, 1);
     	
     	TextField userTextField = new TextField();
@@ -239,6 +256,7 @@ public class LoginPane extends GridPane {
     	
     	// password text field
     	Label password = new Label("Password:");
+    	password.setTextFill(textColor);
     	this.add(password, 0, 2);
 
     	TextField passTextField = new TextField();
