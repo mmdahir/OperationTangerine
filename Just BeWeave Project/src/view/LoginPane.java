@@ -569,7 +569,7 @@ public class LoginPane extends GridPane {
                 	
                 	((NonAdmin) myUser).deleteEvent(event.getTitle());
                 	getChildren().clear();
-                	deleteEvents();
+                	deleteUserEvents();
                 }
         	});
         }
