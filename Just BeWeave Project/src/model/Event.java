@@ -81,8 +81,8 @@ public class Event {
 	/**
 	 * 
 	 */
-	public String getLocation(String theLocation) {
-		return theLocation;
+	public String getLocation() {
+		return myLocation;
 	}
 	
 	/**

@@ -6,9 +6,9 @@ package model;
 
 public class Date {
 	
-	int myYear;
-	int myMonth;
-	int myDate;
+	public final int myYear;
+	public final int myMonth;
+	public final int myDate;
 	
 	/*
 	 * 
@@ -19,6 +19,29 @@ public class Date {
 		myYear = year;
 	}
 	
+	
+//	public int getDate() {
+//		return myDate;
+//	}
+//
+//	public int getMonth() {
+//		return myMonth;
+//	}
+//
+//	public int getYear() {	
+//		return myYear;
+//	}
+	
+	@Override
+	public boolean equals(Object o) {
+		
+		Date theDate = (Date) (o);
+		return (this.myYear == theDate.myYear 
+				&& this.myMonth == theDate.myMonth
+				&& this.myDate == theDate.myDate);
+		
+	}
+
 	public String toString() {
 		return myMonth + "," + myDate + "," + myYear;
 	}
