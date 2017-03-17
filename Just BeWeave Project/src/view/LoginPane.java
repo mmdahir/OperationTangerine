@@ -118,7 +118,8 @@ public class LoginPane extends GridPane {
     	else {
     		
     		Button btn2 = new Button("View your events");
-	    	hbBtn2.getChildren().add(btn2);
+    		Button btn3 = new Button("Remove event");
+	    	hbBtn2.getChildren().addAll(btn2, btn3);
 	    	
 	    	// action for view your events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
@@ -129,6 +130,17 @@ public class LoginPane extends GridPane {
 	            	viewEvents();
 	            }
 	        });
+	        
+	     // action for view your events
+	        btn3.setOnAction(new EventHandler<ActionEvent>() {
+	        	 
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	getChildren().clear();
+	            	deleteUserEvents();
+	            }
+	        });
+	        
     	}
     	
     	Button sign = new Button("Sign Out");
@@ -441,14 +453,7 @@ public class LoginPane extends GridPane {
     	
     	events.setAlignment(Pos.BOTTOM_LEFT);
     	
-        List<Event> eventList = null;
-        
-    	try {
-    		eventList = DataBase.getEvents();
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+        List<Event> eventList = ((NonAdmin) myUser).getEvents();
         
         for(Event event: eventList) {
         	
@@ -525,4 +530,53 @@ public class LoginPane extends GridPane {
             }
     	}); 
     }
+    
+    /**
+     * Can delete user events.
+     */
+    public void deleteUserEvents() {
+    	VBox events = new VBox();
+    	events.setAlignment(Pos.BOTTOM_LEFT);
+    	
+        List<Event> eventList = ((NonAdmin) myUser).getEvents();
+        
+        for(Event event: eventList) {
+        	
+        	Button eventLabel = new Button(event.getTitle());
+        	eventLabel.setFont(new Font("Tahoma", 10));
+        	events.getChildren().add(eventLabel);
+        	eventLabel.setOnAction(new EventHandler<ActionEvent>() {
+              	 
+                @Override
+                public void handle(ActionEvent e) {
+                	
+                	((NonAdmin) myUser).deleteEvent(event.getTitle());
+                	getChildren().clear();
+                	deleteEvents();
+                }
+        	});
+        }
+        
+        Button back = new Button("Back");
+        events.getChildren().add(back);
+    	this.add(events, 0, 1);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	update(myName, false);
+            }
+    	}); 
+    }
+    
+    /**
+     * Returns current user.
+     * @return the user that is logged in
+     */
+    public User getCurrUser() {
+    	return myUser;
+    }
+    
 }

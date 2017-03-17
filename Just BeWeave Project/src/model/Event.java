@@ -40,6 +40,9 @@ public class Event {
 	 */
 	public Event(String theTitle) {
 		myTitle = theTitle;
+		myLocation = "";
+		myDescription = "";
+		myDate = null;
 		myUsers = new ArrayList<User>();
 	}
 	
