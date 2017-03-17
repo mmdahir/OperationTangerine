@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -176,10 +178,26 @@ public class EventsPane extends VBox {
 	        @Override
 	        public void handle(ActionEvent e) {
 	        	
-	        	event.addUser(myUser);
-	            ((NonAdmin) myUser).addEvent(event);
-	        	//LoginPane.
-	        	setup();
+        		Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setHeaderText(null);
+	        	
+	        	if (myUser != null) {
+	        		
+	                ((NonAdmin) myUser).addEvent(event);        	
+	        	    event.addUser(myUser);
+	        	    
+	        		alert.setContentText("You are registered for: \n" + event.getTitle());
+	        		alert.setTitle("Congratulations -");
+	        		alert.showAndWait();
+	        	    
+	        		setup();
+	        	
+	        	} else {
+	        		
+	        		alert.setContentText("You have to be logged in to register for an Event!");
+	        		alert.setTitle("Warning -");
+	        		alert.showAndWait();
+	        	}
 	        }
 		});
 		
