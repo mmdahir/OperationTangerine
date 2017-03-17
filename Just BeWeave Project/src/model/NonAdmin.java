@@ -14,18 +14,22 @@ public class NonAdmin extends AbstractUser {
 		myEvents = new ArrayList<String>();
 	}
 	
-	public List<Event> getEvents() {
-		List<Event> events = new ArrayList<Event>();
-		for (int i = 0; i < myEvents.size(); i++) {
-			try {
-				events.add(DataBase.getEvent(myEvents.get(i)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return events;
+	public List<String> getEvents() {
+		return myEvents;
 	}
+	
+//	public List<Event> getEvents() {
+//		List<Event> events = new ArrayList<Event>();
+//		for (int i = 0; i < myEvents.size(); i++) {
+//			try {
+//				events.add(DataBase.getEvent(myEvents.get(i)));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		return events;
+//	}
 	
 	public void addEvent(String theEventTitle) {
 		myEvents.add(theEventTitle);
