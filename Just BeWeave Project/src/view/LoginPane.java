@@ -118,7 +118,8 @@ public class LoginPane extends GridPane {
     	else {
     		
     		Button btn2 = new Button("View your events");
-	    	hbBtn2.getChildren().add(btn2);
+    		Button btn3 = new Button("Remove event");
+	    	hbBtn2.getChildren().addAll(btn2, btn3);
 	    	
 	    	// action for view your events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
@@ -129,6 +130,17 @@ public class LoginPane extends GridPane {
 	            	viewEvents();
 	            }
 	        });
+	        
+	     // action for view your events
+	        btn3.setOnAction(new EventHandler<ActionEvent>() {
+	        	 
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	getChildren().clear();
+	            	deleteUserEvents();
+	            }
+	        });
+	        
     	}
     	
     	Button sign = new Button("Sign Out");
@@ -537,12 +549,7 @@ public class LoginPane extends GridPane {
                 @Override
                 public void handle(ActionEvent e) {
                 	
-                	try {
-						DataBase.deleteEvent(event.getTitle());
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+                	((NonAdmin) myUser).deleteEvent(event.getTitle());
                 	getChildren().clear();
                 	deleteEvents();
                 }
@@ -558,7 +565,7 @@ public class LoginPane extends GridPane {
             @Override
             public void handle(ActionEvent e) {
             	getChildren().clear();
-            	update(myName, true);
+            	update(myName, false);
             }
     	}); 
     }
