@@ -12,5 +12,5 @@ public interface User {
 	
 	public boolean isAdmin();
 	
-	boolean equals(AbstractUser user1);	
+	////boolean equals(AbstractUser user1);	
 }
