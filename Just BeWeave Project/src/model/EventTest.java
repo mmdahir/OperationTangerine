@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class EventTest {
 	
+	//sss
 	Event myEvent1;
 	Event myEvent2;
 	Event myEvent3;

@@ -5,7 +5,7 @@
 package model;
 
 public class Date {
-	
+	//
 	public final int myYear;
 	public final int myMonth;
 	public final int myDate;
