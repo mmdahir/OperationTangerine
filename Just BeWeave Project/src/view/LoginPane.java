@@ -119,11 +119,22 @@ public class LoginPane extends GridPane {
     		
     		Button btn2 = new Button("View your events");
     		Button btn3 = new Button("Remove event");
+    		Button btn1 = new Button("Register for events");
     		
             btn2.setMinWidth(110);
             btn3.setMinWidth(110);
     		
-	    	hbBtn2.getChildren().addAll(btn2, btn3);
+	    	hbBtn2.getChildren().addAll(btn1, btn2, btn3);
+	    	
+	    	// action for adding events
+	        btn1.setOnAction(new EventHandler<ActionEvent>() {
+	        	 
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	getChildren().clear();
+	            	regEvents();
+	            }
+	        });
 	    	
 	    	// action for view your events
 	        btn2.setOnAction(new EventHandler<ActionEvent>() {
@@ -135,7 +146,7 @@ public class LoginPane extends GridPane {
 	            }
 	        });
 	        
-	     // action for view your events
+	        // action for delete your events
 	        btn3.setOnAction(new EventHandler<ActionEvent>() {
 	        	 
 	            @Override
@@ -589,11 +600,60 @@ public class LoginPane extends GridPane {
     }
     
     /**
-     * Returns current user.
-     * @return the user that is logged in
+     * Allows a user to register for events.
      */
-    public User getCurrUser() {
-    	return myUser;
+    public void regEvents() {
+    	VBox events = new VBox();
+    	
+    	final Text actiontarget = new Text();
+        events.getChildren().add(actiontarget);
+    	events.setAlignment(Pos.BOTTOM_LEFT);
+    	
+        List<Event> eventList = null;
+        
+    	try {
+    		eventList = DataBase.getEvents();
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+        
+        for(Event event: eventList) {
+        	
+        	Button eventLabel = new Button(event.getTitle());
+        	
+        	eventLabel.setFont(new Font("Tahoma", 10));
+        	events.getChildren().add(eventLabel);
+        	eventLabel.setOnAction(new EventHandler<ActionEvent>() {
+              	 
+                @Override
+                public void handle(ActionEvent e) {
+                	if(((NonAdmin) myUser).getEvents().contains(event.getTitle())) {
+                		actiontarget.setFill(Color.FIREBRICK);
+                		actiontarget.setText("You are already registered for this event.");
+                		
+                	}else {
+                		actiontarget.setText("");
+                		((NonAdmin) myUser).addEvent(event);
+                		
+                	}
+        	
+                }
+        	});
+        }
+        
+        Button back = new Button("Back");
+        events.getChildren().add(back);
+    	this.add(events, 0, 1);
+        
+    	back.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	getChildren().clear();
+            	update(myName, false);
+            }
+    	}); 
     }
     
 }
