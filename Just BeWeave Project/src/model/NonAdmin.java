@@ -59,9 +59,10 @@ public class NonAdmin extends AbstractUser {
 	
 	@Override
 	public String toString() {
-		String s1 = super.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toString());
 		for (String s2 : myEvents) 
-			s1.concat("," + s2 + ",");
-		return s1;
+			sb.append("," + s2 + ",");
+		return sb.toString();
 	}
 }

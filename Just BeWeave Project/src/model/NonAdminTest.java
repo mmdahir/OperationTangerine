@@ -89,9 +89,11 @@ public class NonAdminTest {
 	@Test
 	public void testToString() {
 		u1 = new NonAdmin("u1", "p1", false);
+		u1.addEvent(e3);
 		u3 = new Admin("u3", "p3", true);
 		
-		assertEquals("u1,p1,FALSE,", u1.toString());
+		System.out.println(u1.toString());
+		assertEquals("u1,p1,FALSE,e3,", u1.toString());
 		assertEquals("u3,p3,TRUE,", u3.toString());
 		
 		
