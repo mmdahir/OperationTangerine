@@ -362,11 +362,10 @@ public class DataBase {
 	}
 	
 //	public static void main(String[] args) throws IOException {
-//		Event e = getEvent("Ultimate Weaving Experience");
+////		Event e = getEvent("Ultimate Weaving Experience");
 //		User u = getUser("john");
-//		NonAdmin u2 = ((NonAdmin)u);
-//		u2.addEvent(e);
-//		overwriteUser(u2);
+////		NonAdmin u2 = ((NonAdmin)u);
+//		System.out.println(u);
 //	}
 }
 
