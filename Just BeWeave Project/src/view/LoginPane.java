@@ -358,8 +358,10 @@ public class LoginPane extends GridPane {
             		actiontarget.setFill(Color.FIREBRICK);
             		actiontarget.setText("Input cannot contain commas.");
             	}else {
+            		
             		newUser = new NonAdmin(userTextField.getText(), 
 							passTextField.getText(), false);
+            		myUser = newUser;
             		try {
     					DataBase.saveUser(newUser);
     				} catch (IOException e1) {
