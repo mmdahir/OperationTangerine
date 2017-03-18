@@ -23,8 +23,6 @@ import java.util.Observable;
 //NOTE THAT THE Users CSV WILL BE FORMATTED AS: USER1NAME, USER2PSWD, USER1BOOLEAN, ETC...
 //NonAdmin(String theUserName, String thePassword, boolean theAdmin)
 
-
-
 /**
  * The DataBase class the will read and write to and from a CSV file.
  * 
@@ -79,8 +77,7 @@ public class DataBase {
 				brFile.close();
 				
 				return list;
-			}
-			
+			}	
 		}
 		
 		usrFile.close();
@@ -147,8 +144,6 @@ public class DataBase {
 		List<Event> events = new ArrayList<Event>();
 		
 		LinkedList<String[]> eventList = checkCSV(myEventCSV, "", true);
-		
-		
 		
 		for(int i = 0; i < eventList.size(); i++) {
 			//public Event(String theTitle, String theLocation, String theDescription, Date theDate)
@@ -326,7 +321,8 @@ public class DataBase {
 		
 		File file = new File(myUserCSV);
 		File newFile = new File("src/model/tempUser.csv");
-        BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
+        
+		BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
         BufferedWriter out2 = new BufferedWriter(new FileWriter(newFile, true));
         BufferedReader br = new BufferedReader(new FileReader(file));
         

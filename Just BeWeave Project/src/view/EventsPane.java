@@ -177,6 +177,7 @@ public class EventsPane extends VBox {
 	        public void handle(ActionEvent e) {
 	        	
         		Alert alert = new Alert(AlertType.INFORMATION);
+        		
         		alert.setHeaderText(null);
 	        	
 	        	if (myUser != null) {

@@ -82,7 +82,7 @@ public class LoginPane extends GridPane {
     	
     	Text scenetitle = new Text(theName);
     	
-    	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+    	scenetitle.setFont(Font.font("Arial Bold", FontWeight.NORMAL, 15));
     	
     	this.add(scenetitle, 1, 1, 1, 1);
     	VBox hbBtn2 = new VBox();
