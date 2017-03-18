@@ -45,7 +45,7 @@ public abstract class AbstractUser implements User {
 	@Override
 	public String toString() {
 		String out = myUserName + "," + myPassword + ",";
-		out += (isAdmin) ? "TRUE," : "FALSE";
+		out += (isAdmin) ? "TRUE," : "FALSE,";
 		
 		return out;
 	}
