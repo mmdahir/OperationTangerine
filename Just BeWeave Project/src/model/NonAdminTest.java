@@ -32,8 +32,16 @@ public class NonAdminTest {
 		l.add(e1.getTitle());
 		l.add(e2.getTitle());
 		
-		System.out.println(l.toString());
-		System.out.println(u1.getEvents().toString());
+	//	System.out.println(l.toString());
+	//	System.out.println(u1.getEvents().toString());
+		assertEquals(l, u1.getEvents());
+		
+		l.remove(1);
+		u1.deleteEvent("e2");
+		
+		assertEquals(l, u1.getEvents());
+		
+		u1.addEvent("e1");
 		assertEquals(l, u1.getEvents());
 	}
 

@@ -1,5 +1,4 @@
 package view;
-
 import java.io.IOException;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -184,6 +183,18 @@ public class EventsPane extends VBox {
 	        		
 	                ((NonAdmin) myUser).addEvent(event);        	
 	        	    event.addUser(myUser);
+	        	    try {
+						DataBase.saveEvent(event);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	        	    try {
+						DataBase.saveUser(myUser);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 	        	    
 	        		alert.setContentText("You are registered for: \n" + event.getTitle());
 	        		alert.setTitle("Congratulations -");

@@ -25,10 +25,13 @@ public class DateTest {
 		d1 = new Date(12,12,12);
 		d2 = new Date(03,5,17);
 		
-		String s1 = 12 + "," + 12 + "," + 12;
+		String s1 = 12 + "," + 12 + "," + "12,";
 		
+		
+		System.out.println(s1);
+		System.out.println(d1.toString());
 		assertEquals(s1, d1.toString());
-		assertEquals(3 + "," + 5 + "," + 17, d2.toString());
+		assertEquals(3 + "," + 5 + "," + "17,", d2.toString());
 	}
 
 }
