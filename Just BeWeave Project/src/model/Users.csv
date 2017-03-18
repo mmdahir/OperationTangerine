@@ -1,14 +1,16 @@
-"sKiPtHiS!@#		",,
-BOB,PSWDBOB,TRUE
-KAKA,PSWDKAKA,FALSE
-john,chang,FALSE
-caleb,,FALSE
-john,chang,FALSE
-john,chang,FALSE
-john,chang,FALSE
-,,FALSE
-,,FALSE
-john,chang,FALSE
-john2,chang,FALSE
-caleb,password,FALSE
+"sKiPtHiS!@#		",,,
+BOB,PSWDBOB,TRUE,
+KAKA,PSWDKAKA,FALSE,
 john,chang,FALSE,
+caleb,,FALSE,
+john,chang,FALSE,
+john,chang,FALSE,
+john,chang,FALSE,
+,,FALSE,
+,,FALSE,
+john,chang,FALSE,
+john2,chang,FALSE,
+caleb,password,FALSE,
+john,chang,FALSE,
+Caleb,Password,FALSE,
+caleb,,FALSE,Once You Join You Can Never Weave
