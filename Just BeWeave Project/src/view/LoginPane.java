@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -566,16 +567,22 @@ public class LoginPane extends GridPane {
      * Can delete user events.
      */
     public void deleteUserEvents() {
+    	
     	VBox events = new VBox();
+    	
     	events.setAlignment(Pos.BOTTOM_LEFT);
+    	events.setSpacing(10);
     	
         List<String> eventList = ((NonAdmin) myUser).getEvents();
         
         for(String event: eventList) {
         	
-        	Button eventLabel = new Button(event);
-        	eventLabel.setFont(new Font("Tahoma", 10));
+        	Hyperlink eventLabel = new Hyperlink(event);
+        	
         	events.getChildren().add(eventLabel);
+        	
+        	eventLabel.setFont(new Font("Arial Bold", 12));
+        	eventLabel.setTextFill(textColor);
         	eventLabel.setOnAction(new EventHandler<ActionEvent>() {
               	 
                 @Override
