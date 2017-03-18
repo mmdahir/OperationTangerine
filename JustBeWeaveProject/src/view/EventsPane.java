@@ -103,7 +103,6 @@ public class EventsPane extends VBox {
 		try {
 			eventList = DataBase.getEvents();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
@@ -185,9 +184,9 @@ public class EventsPane extends VBox {
 	        	    event.addUser(myUser);
 	        	    
 	        	    try {
+						DataBase.overwriteEvent(event);
 						DataBase.overwriteUser(myUser);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 	        	    

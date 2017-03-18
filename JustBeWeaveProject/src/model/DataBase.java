@@ -8,6 +8,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Properties;
 
 // NOTE THAT THE Events CSV WILL BE FORMATTED AS: TITLE, LOCATION, DESCRIPTION, MONTH, DATE, YEAR, USR1, USR2, etc
 //public Event(String theTitle, String theLocation, String theDescription, Date theDate)
@@ -31,10 +33,10 @@ import java.util.Observable;
 public class DataBase {
 	
 	/** The directory to the Events.csv */
-	private static String myEventCSV = "src/model/Events.csv";
+	private static String myEventCSV = "Events.csv";
 	
 	/** The directory to the Events.csv */
-	private static String myUserCSV = "src/model/Users.csv";
+	private static String myUserCSV = "Users.csv";
 	
 	/**
 	 * Grabs either one line or all the lines from a csv file.
@@ -49,6 +51,11 @@ public class DataBase {
 			throws IOException, FileNotFoundException {
 		
 		LinkedList<String[]> list = new LinkedList<String[]>();
+		
+		File jarPath = 
+				new File(DataBase.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String propertiesPath = jarPath.getParent();
+		theFile = propertiesPath + "/" + theFile;
 		
 		FileReader usrFile = new FileReader(new File(theFile));
 		BufferedReader brFile = new BufferedReader(usrFile);
@@ -226,8 +233,12 @@ public class DataBase {
 	 */
 	public static void deleteEvent(String theEvent) throws IOException {
 		
-		File file = new File(myEventCSV);
-		File newFile = new File("src/model/tempEvent.csv");
+		File jarPath = 
+				new File(DataBase.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String propertiesPath = jarPath.getParent();
+		
+		File file = new File(propertiesPath + "/" + myEventCSV);
+		File newFile = new File(propertiesPath + "/tempEvent.csv");
         BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
         BufferedWriter out2 = new BufferedWriter(new FileWriter(newFile, true));
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -319,8 +330,12 @@ public class DataBase {
 	 */
 	public static void deleteUser(String theUserName) throws IOException {
 		
-		File file = new File(myUserCSV);
-		File newFile = new File("src/model/tempUser.csv");
+		File jarPath = 
+				new File(DataBase.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String propertiesPath = jarPath.getParent();
+		
+		File file = new File(propertiesPath + "/" + myUserCSV);
+		File newFile = new File(propertiesPath + "/tempUser.csv");
         
 		BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
         BufferedWriter out2 = new BufferedWriter(new FileWriter(newFile, true));
@@ -361,12 +376,14 @@ public class DataBase {
 		saveUser(theUser);
 	}
 	
-//	public static void main(String[] args) throws IOException {
-////		Event e = getEvent("Ultimate Weaving Experience");
-//		User u = getUser("john");
-////		NonAdmin u2 = ((NonAdmin)u);
-//		System.out.println(u);
-//	}
+	public static void main(String[] args) throws IOException {
+
+		
+		File jarPath = 
+				new File(DataBase.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String propertiesPath = jarPath.getParent();
+		System.out.println("Properties Path - " + propertiesPath);
+	}
 }
 
 /*

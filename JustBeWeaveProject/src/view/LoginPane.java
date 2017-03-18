@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
@@ -19,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -368,6 +370,12 @@ public class LoginPane extends GridPane {
     					// TODO Auto-generated catch block
     					e1.printStackTrace();
     				}
+            		Alert alert = new Alert(AlertType.INFORMATION);
+            		
+            		alert.setHeaderText(null);
+            		alert.setContentText("Please Sign-out and sign back in to use program");
+	        		alert.setTitle("Welcome New User!");
+	        		alert.showAndWait();
             		getChildren().clear();
             		update(myName, false);
             	}  
@@ -591,6 +599,15 @@ public class LoginPane extends GridPane {
                 public void handle(ActionEvent e) {
                 	
                 	((NonAdmin) myUser).deleteEvent(event);
+                	try {
+						Event e3 = DataBase.getEvent(event);
+						e3.removeUser(myUser);
+						DataBase.overwriteEvent(e3);
+
+						DataBase.overwriteUser(myUser);
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
                 	getChildren().clear();
                 	deleteUserEvents();
                 }
